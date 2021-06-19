@@ -7,8 +7,14 @@ package Prestamos;
 
 /**
  *
- * @author ALICE
+ * @author Gene
  */
-public class CalculadoraPrestamoAleman {
+public class CalculadoraPrestamoAleman extends CalculadoraPrestamo{
     
+        public CalculadoraPrestamoAleman(){}
+    
+    public double calculadoraPrestamoFrances(double costoPropiedad, double tasaInteres, int num_cuotas){
+        CalculadoraPrestamoAleman c = new CalculadoraPrestamoAleman();
+        return c.calculadorPrestamo(costoPropiedad, tasaInteres, num_cuotas, "aleman");
+    }       
 }

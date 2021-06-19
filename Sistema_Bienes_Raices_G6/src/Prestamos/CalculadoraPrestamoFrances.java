@@ -12,6 +12,12 @@ package Prestamos;
 
 public class CalculadoraPrestamoFrances extends CalculadoraPrestamo{
     
+    public CalculadoraPrestamoFrances(){}
     
+    public double calculadoraPrestamoFrances(double costoPropiedad, double tasaInteres, int num_cuotas){
+        CalculadoraPrestamoFrances c = new CalculadoraPrestamoFrances();
+        return c.calculadorPrestamo(costoPropiedad, tasaInteres, num_cuotas, "frances");
+        
     }
+    
 }
