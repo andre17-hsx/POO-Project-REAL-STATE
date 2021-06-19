@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistema_bienes_raices_g6.Usuarios;
+package Usuarios;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ArrayList;
-import sistema_bienes_raices_g6.Usuarios.TipoUsuario;
+
 /**
  *
  * @author andya
@@ -18,6 +19,8 @@ public abstract class Usuario {
     protected int cedula;
     protected String correo;
     protected TipoUsuario Tipo;
+    private LocalDate FechaInicio;
+    
     
     public Usuario(String user, String password, String nombre, int cedula, String correo, TipoUsuario Tipo){
         this.user= user;

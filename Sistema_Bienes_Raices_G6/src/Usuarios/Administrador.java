@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sistema_bienes_raices_g6.Usuarios;
+package Usuarios;
 
 import java.util.ArrayList;
 import java.util.Scanner;
