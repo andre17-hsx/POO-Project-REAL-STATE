@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Usuarios;
+import Propiedades.Propiedad;
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,16 +14,20 @@ import java.util.Scanner;
  * @author andya
  */
 public class Agente_Venta extends Usuario {
-    private ArrayList<Propiedad> ListaPropiedades;
-    private ArrayList<Venta> ListaVentas;
-    private ArrayList<Consulta> ListaConsultas;
-
-    public Agente_Venta(String user, String password, String nombre, int cedula, String correo, ArrayList<Propiedad> ListaPropiedades, ArrayList<Venta> ListaVentas, ArrayList<Consulta> ListaConsultas){
-    super(user, password, nombre, cedula, correo, TipoUsuario.Agente_Venta);
-    this.ListaPropiedades = ListaPropiedades;
-    this.ListaVentas= ListaVentas;
-    this.ListaConsultas= ListaConsultas;
+    //private ArrayList<Propiedad> ListaPropiedades;
+    //private ArrayList<Venta> ListaVentas;
+    //private ArrayList<Consultas> ListaConsultas;
+    
+    private String nombre;
+    private int cedula;
+    private String correo;
+    
+    
+     public Agente_Venta(String user, String password, String nombre, int cedula, String correo) {
+        super(user, password, nombre, cedula, correo, TipoUsuario.Agente_Venta);
+        
     }
+    
     
     public static void MostrarMenuAdministrador(){
         Scanner  sc = new Scanner(System.in);
@@ -71,7 +76,8 @@ public class Agente_Venta extends Usuario {
     
     
     public static void RevisarBuzon(){}
-    
+
+   
     
     public void ResponderConsulta(){}
     

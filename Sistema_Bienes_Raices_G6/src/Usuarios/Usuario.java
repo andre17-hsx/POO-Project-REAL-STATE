@@ -68,6 +68,28 @@ public abstract class Usuario {
         this.Tipo = Tipo;
     }
     
+    public Usuario verificarUsuario(Usuario usuario, ArrayList<Usuario> usuarios) {
+        if (!usuarios.isEmpty()) {
+            for (Usuario usu : usuarios) {
+                if (usu.equals(usuario)) {
+                    return usu;
+                }
+            }
+        }
+        return null;
+    }
     
+    @Override
+    public boolean equals(Object obj){
+        if(obj!=null){
+            if (obj instanceof Usuario){
+                Usuario u = (Usuario)obj;
+                if (user.equals(u.getUser())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     
 }

@@ -5,6 +5,7 @@
  */
 package Usuarios;
 
+import Propiedades.Propiedad;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Objects;
@@ -13,9 +14,9 @@ import java.util.Objects;
  * @author andya
  */
 public class Cliente extends Usuario{
-    private ArrayList<Consulta> ListaConsultas;
+    private ArrayList<Consultas> ListaConsultas;
 
-    public Cliente(String user, String password, String nombre, int cedula, String correo, ArrayList<Consulta>() ListaConsultas){
+    public Cliente(String user, String password, String nombre, int cedula, String correo, ArrayList<Consultas> ListaConsultas){
     super(user, password, nombre, cedula, correo, TipoUsuario.Cliente);
     this.ListaConsultas = ListaConsultas;
     }
@@ -73,6 +74,6 @@ public class Cliente extends Usuario{
     
     public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, int precio){}
     public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Tipo){}
-    public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Ciudad ){}
-    public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Sector){}
+    //public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Ciudad){}
+    //public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Sector){}
 }
