@@ -5,6 +5,10 @@
  */
 package Usuarios;
 
+import Propiedades.Propiedad;
+import Propiedades.Terreno;
+import Propiedades.Casa;
+import Propiedades.TipoTerreno;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,21 +57,139 @@ public class Administrador extends Usuario {
             }
         }while(!opcion.equals("4"));
         }
-     private static void opcion1AD(){
-        Scanner sc = new Scanner(System.in);}
-        
-     
-     
-     private static void opcion2AD(){
-        Scanner sc = new Scanner(System.in);}
     
+    
+     private static void opcion1AD(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Registro de nueva propiedad");
+        System.out.println("Ingrese tipo de propiedad (Terreno o Casa):");
+        String tipo = sc.nextLine();
+        while(!("casa".equals(tipo.toLowerCase())||"terreno".equals(tipo.toLowerCase()))){
+            System.out.println("Tipo no válido");
+            System.out.println("Ingrese el tipo del propiedad (Terreno o Casa)");
+            tipo = sc.nextLine();
+            tipo.toLowerCase();
+        }
+        
+        TipoTerreno tipoterreno = null;
+        
+        if (tipo.toLowerCase().equals("terreno")){
+            System.out.println("Ingrese el tipo de terreno (Comercial, Vivienda o Empresarial)");
+            String tip=sc.nextLine();
+            switch(tip.toLowerCase()){
+                case "comercial":
+                    tipoterreno=TipoTerreno.COMERCIAL;
+                    break;
+                case "vivienda":
+                    tipoterreno=TipoTerreno.VIVIENDA;
+                    break;
+                case "empresarial":
+                    tipoterreno=TipoTerreno.EMPRESARIAL;
+                    break;
+                default:
+                    System.out.println("Ingrese el tipo de terreno (Comercial, Vivienda o Empresarial)");
+            }
+          
+        }
+        
+        int numpisos = 0;
+        int numhabitaciones = 0;
+        if (tipo.toLowerCase().equals("casa")){
+            System.out.println("Ingrese el numero de pisos");
+            while(!sc.hasNextInt()){
+                sc.nextLine();
+                System.out.println("Cantidad de pisos incorrectos");
+                System.out.println("Ingrese el numero de pisos de la propiedad");
+            }
+            numpisos = sc.nextInt();
+        
+            System.out.println("Ingrese el numero de habitaciones de la propiedad");
+            while(!sc.hasNextInt()){
+                sc.nextLine();
+                System.out.println("Numero de habitaciones incorrecto");
+                System.out.println("Ingrese el numero de habitaciones de la propiedad");
+            }
+            numhabitaciones = sc.nextInt();
+        }
+        
+        System.out.println("Ingrese el precio de la propiedad");
+        while(!(sc.hasNextDouble()||sc.hasNextInt())){
+                sc.nextLine();
+                System.out.println("Precio incorrecto");
+                System.out.println("Ingrese el precio de la propiedad");
+            }
+        double precio = sc.nextDouble();
+        
+        System.out.println("Ingrese el ancho de la propiedad");
+        while(!(sc.hasNextDouble()||sc.hasNextInt())){
+                sc.nextLine();
+                System.out.println("Ancho incorrecto");
+                System.out.println("Ingrese el ancho de la propiedad");
+            }
+        double ancho = sc.nextDouble();
+        
+        System.out.println("Ingrese la profundidad de la propiedad");
+        while(!(sc.hasNextDouble()||sc.hasNextInt())){
+                sc.nextLine();
+                System.out.println("Profundidad incorrecto");
+                System.out.println("Ingrese la profundidad de la propiedad");
+            }
+        double profundidad = sc.nextDouble();
+        
+        System.out.println("Ingrese la ubicacion de la propiedad");
+        String ubicacion = sc.nextLine();
+        
+        System.out.println("Ingrese el id de la propiedad");
+        while(!sc.hasNextInt()){
+                sc.nextLine();
+                System.out.println("Id incorrecto");
+                System.out.println("Ingrese el id de la propiedad");
+            }
+        int id=sc.nextInt();
+        
+        if (tipo.toLowerCase().equals("terreno")){
+            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion, id);
+            //UIUsuarios.getAnimales().add(perro);
+        }
+        
+        else if(tipo.toLowerCase().equals("casa")){
+            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion, id);
+            //UIUsuarios.getAnimales().add(gato);
+        }
+     }
+     private static void opcion2AD(){
+         
+        Scanner sc = new Scanner(System.in);
+           
+        System.out.println("Opcion Registrar Agente");
+        
+        System.out.println("Ingrese el usuario del Agente:");
+        String usuario = sc.nextLine();
+        
+        System.out.println("Ingrese la contraseña del Agente:");
+        String contraseña = sc.nextLine();
+        
+        System.out.println("Ingrese el nombre del Agente:");
+        String nombre = sc.nextLine();
+        
+        System.out.println("Ingrese su identificacion:");
+        int identificacion=sc.nextInt();
+        
+        System.out.println("Ingrese el correo del Agente:");
+        String correo = sc.nextLine();
+        
+        Agente_Venta Agente = new Agente_Venta(usuario, contraseña, nombre, identificacion, correo);
+        
+     }
+    
+     
     
     private static void opcion3AD(){
         Scanner sc = new Scanner(System.in);}
     
-    //public void RegistrarPropiedad(Propiedad){}
-    
+        
+    }
     //public void RegistrarAgente(Agente_Venta Agente, ArrayList<Propiedad> Propiedades){}
     
     //public void ReporteGeneral(Fehca_Inicio, Fecha_Fin){}
-}
+
