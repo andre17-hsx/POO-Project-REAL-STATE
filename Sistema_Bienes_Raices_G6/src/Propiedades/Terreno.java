@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Propiedades;
-import Usuarios.Agente_Venta;
+import Usuarios.*;
 /**
  *
  * @author jeras

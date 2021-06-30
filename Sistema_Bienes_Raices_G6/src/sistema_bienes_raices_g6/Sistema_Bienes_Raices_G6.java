@@ -40,7 +40,6 @@ public class Sistema_Bienes_Raices_G6 {
         */
         
         
-        
     }
     
 }
