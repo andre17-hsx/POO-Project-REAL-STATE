@@ -17,8 +17,8 @@ public class Casa extends Propiedad {
     /* Herencia --> Para construir una Casa se aplica a herencia y hereda el constructor de la SuperClase Propiedad y
     aniade los atributos propios de casa
     */
-    public Casa(int numPisos, int habitaciones, double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado) {
-        super(precio, m2, profundidad, ubicacion, id, estadoVenta, consultado);
+    public Casa(int numPisos, int habitaciones, double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado, String Agente) {
+        super(precio, m2, profundidad, ubicacion, id, estadoVenta, consultado, Agente);
         this.numPisos = numPisos;
         this.habitaciones = habitaciones;
     }
@@ -26,10 +26,16 @@ public class Casa extends Propiedad {
     /*Herencia y OverWrite = llama al constructor de la SuperClase que solo recibe 5 parámetros
     y aplica sobre-escritura al constructor Casa donde solo añade el numPisos y Habitaciones
     */
-    public Casa(int numPisos, int habitaciones, double precio, double m2, double profundidad, String ubicacion, int id){
-        super(precio, m2, profundidad, ubicacion, id);
+    public Casa(int numPisos, int habitaciones, double precio, double m2, double profundidad, String ubicacion, int id, String Agente){
+        super(precio, m2, profundidad, ubicacion, id, Agente);
         this.numPisos = numPisos;
         this.habitaciones = habitaciones;
+    }
+
+    public Casa(int numPisos, int numhabitaciones, double precio, double m2, double profundidad, String ubicacion) {
+        super(precio, m2, profundidad, ubicacion);
+        this.numPisos=numPisos;
+        this.habitaciones=habitaciones;
     }
     
     

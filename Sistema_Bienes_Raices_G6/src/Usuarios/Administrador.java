@@ -5,7 +5,6 @@
  */
 package Usuarios;
 
-import Propiedades.Propiedad;
 import Propiedades.Terreno;
 import Propiedades.Casa;
 import Propiedades.TipoTerreno;
@@ -68,7 +67,7 @@ public class Administrador extends Usuario {
             System.out.println("Tipo no válido");
             System.out.println("Ingrese el tipo del propiedad (Terreno o Casa)");
             tipo = sc.nextLine();
-            tipo.toLowerCase();
+            
         }
         
         TipoTerreno tipoterreno = null;
@@ -147,14 +146,16 @@ public class Administrador extends Usuario {
             }
         int id=sc.nextInt();
         
+        System.out.println("Ingrese el nombre del Agente al que se le asiganara la propiedad");
+        String Agente = sc.nextLine();
+        
         if (tipo.toLowerCase().equals("terreno")){
-            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion, id);
+            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion, id, Agente);
             //UIUsuarios.getAnimales().add(perro);
         }
         
         else if(tipo.toLowerCase().equals("casa")){
-            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion, id);
-            //UIUsuarios.getAnimales().add(gato);
+            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion, id, Agente);
         }
      }
      private static void opcion2AD(){
