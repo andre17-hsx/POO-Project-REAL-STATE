@@ -359,8 +359,4 @@ public class Cliente extends Usuario{
         Scanner sc = new Scanner(System.in);}
     
     
-    public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, int precio){}
-    public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Tipo){}
-    //public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Ciudad){}
-    //public void ConsultarPropiedad(ArrayList<Propiedad> ListaP, String Sector){}
 }
