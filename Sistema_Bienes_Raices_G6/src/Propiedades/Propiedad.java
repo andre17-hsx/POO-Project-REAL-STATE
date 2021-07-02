@@ -5,61 +5,55 @@
  */
 package Propiedades;
 import Usuarios.*;
+import java.util.Arrays;
+import java.util.ArrayList;
 /**
  *
  * @author jeras
  */
 public class Propiedad {
-    
+
 private double precio;
-private double m2;
+private double ancho;
 private double profundidad;
-private String ubicacion; //[provincia, ciudad, dir, sector]
+private String[] ubicacion; //Arreglo de 4 posiciones [provincia, ciudad, dir, sector]
 private int id;
 private boolean estadoVenta;
 private boolean consultado;
-private String Agente;
+private Agente_Venta agente;
+    
 
-    public Propiedad(double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado, String Agente) {
+
+    //Constructor#1 de la Clase Propiedad
+    public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente) {
         this.precio = precio;
-        this.m2 = m2;
+        this.ancho = ancho;
         this.profundidad = profundidad;
         this.ubicacion = ubicacion;
-        this.id = id;
         this.estadoVenta = estadoVenta;
         this.consultado = consultado;
-        this.Agente = Agente;
+        this.agente = agente;
     }
     
-    /*@overwrite -> Se estable un constructor donde recibe parametros minimos necesarios
-    para inicialiar una propiedad, los cuales serian todos excepto los estados
-    de estadoVenta y consultado que por defalut serian falsos.
-    */ 
-   public Propiedad(double precio, double m2, double profundidad, String ubicacion, int id, String Agente){
-            this(precio, m2, profundidad, ubicacion, id,false,false, Agente);
-   }
     
-    public Propiedad(double precio, double m2, double profundidad, String ubicacion){
-            this.precio=precio;
-            this.m2=m2;
-            this.profundidad=profundidad;
-            this.ubicacion=ubicacion;
-   } 
+    //@OverLoading de Constructor#1 Para instanciar una propiedad con los valores iniciales minimos
+   //para crear, donde estadoVenta y consultado inician con FALSE.
+    public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, Agente_Venta agente){
+            this(precio, ancho, profundidad, ubicacion,false,false,agente);
+    }
     
-    /*@overwrite -> Se estable un constructor pque no recibe parámetros
-    el cual inicializa a todos los atributos con valores por defecto.
-    */    
+
+    /*//@OverLoading, creamos un constructor sin argumentos donde colocamos valores iniciales´por defecto  
     public Propiedad(){
         this.precio = 0.00;
-        this.m2 = 0.00;
-        this.profundidad = 0.00;
-        this.ubicacion = "Guayaquil, Norte";
-        this.id = 0;
+        this.ancho = 1;
+        this.profundidad = 1;
+        this.ubicacion = new String[]{"GUAYAQUIL","GUAYAS","LA CHALA","SUR-OESTE"};
         this.estadoVenta = false;
         this.consultado = false;
     }
-    
-
+   */ 
+ 
 
     //@Getters
     
@@ -67,15 +61,15 @@ private String Agente;
         return precio;
     }
 
-    public double getM2() {
-        return m2;
+    public double getAncho() {
+        return ancho;
     }
 
     public double getProfundidad() {
         return profundidad;
     }
 
-    public String getUbicacion() {
+    public String[] getUbicacion() {
         return ubicacion;
     }
 
@@ -91,8 +85,8 @@ private String Agente;
         return consultado;
     }
 
-    public String getAgente() {
-        return Agente;
+    public Agente_Venta getAgente() {
+        return agente;
     }
 
     
@@ -102,15 +96,15 @@ private String Agente;
         this.precio = precio;
     }
 
-    public void setM2(double m2) {
-        this.m2 = m2;
+    public void setAncho(double ancho) {
+        this.ancho = ancho;
     }
 
     public void setProfundidad(double profundidad) {
         this.profundidad = profundidad;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(String[] ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -127,27 +121,23 @@ private String Agente;
     }
  
     
-    //Cuando se agregue el paquete Propiedad junto con las otras clases
-    //descomentar el método de abajo
-    
-    
     //@Metodos de clase Propiedad
     
     public void mostrarInformacion(){
 
         System.out.print("\n====== DETALLES DE PROPIEDAD ======\n");
         System.out.println("- ID \t\t\t:"+id);
-        System.out.println("- Metros 2 \t\t:"+m2);
+        System.out.println("- Metros 2 \t\t:"+ancho);
         System.out.println("- Profundidad \t\t:"+profundidad);
         System.out.println("- Ubicacion \t\t:"+ubicacion);
         System.out.println("- Precio $ \t\t:"+precio);
+        System.out.println("-Agente asignado\t\t:"+agente.getUser());
         
         if(estadoVenta){ System.out.println("- Estado de Venta \t: SI");
         }else{ System.out.println("- Estado de Venta \t: NO");}
         
         if(estadoVenta){System.out.println("- Estado de Venta \t: SI");
-        }else{System.out.println("- Estado de Venta \t: NO");
-        }
+        }else{System.out.println("- Estado de Venta \t: NO");}
         
     }
     

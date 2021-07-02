@@ -14,30 +14,21 @@ public class Casa extends Propiedad {
     private int numPisos;
     private int habitaciones;
 
-    /* Herencia --> Para construir una Casa se aplica a herencia y hereda el constructor de la SuperClase Propiedad y
-    aniade los atributos propios de casa
-    */
-    public Casa(int numPisos, int habitaciones, double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado, String Agente) {
-        super(precio, m2, profundidad, ubicacion, id, estadoVenta, consultado, Agente);
-        this.numPisos = numPisos;
-        this.habitaciones = habitaciones;
-    }
     
-    /*Herencia y OverWrite = llama al constructor de la SuperClase que solo recibe 5 parámetros
-    y aplica sobre-escritura al constructor Casa donde solo añade el numPisos y Habitaciones
-    */
-    public Casa(int numPisos, int habitaciones, double precio, double m2, double profundidad, String ubicacion, int id, String Agente){
-        super(precio, m2, profundidad, ubicacion, id, Agente);
+    //@Constructor#1 de la Clase Casa
+    public Casa(int numPisos, int habitaciones, double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente) {
+        super(precio,ancho,profundidad,ubicacion,estadoVenta,consultado,agente); //--> Llama al constructor de la Superclase
         this.numPisos = numPisos;
         this.habitaciones = habitaciones;
     }
 
-    public Casa(int numPisos, int numhabitaciones, double precio, double m2, double profundidad, String ubicacion) {
-        super(precio, m2, profundidad, ubicacion);
-        this.numPisos=numPisos;
-        this.habitaciones=habitaciones;
+    //@OverLoading del Constructor#1 de Casa
+    public Casa(int numPisos, int habitaciones, double precio, double ancho, double profundidad, String[] ubicacion,Agente_Venta agente){
+        super(precio,ancho, profundidad, ubicacion,agente); //---> Llama al constructor de la SuperClase que solo recibe 5 argumentos
+        this.numPisos = numPisos;
+        this.habitaciones = habitaciones;
     }
-    
+
     
     
     //@Getters

@@ -10,6 +10,7 @@ import Propiedades.Casa;
 import Propiedades.TipoTerreno;
 import java.util.ArrayList;
 import java.util.Scanner;
+import sistema_bienes_raices_g6.UIUsuarios;
 
 /**
  *
@@ -55,7 +56,7 @@ public class Administrador extends Usuario {
                     break;
             }
         }while(!opcion.equals("4"));
-        }
+}
     
     
      private static void opcion1AD(){
@@ -136,7 +137,11 @@ public class Administrador extends Usuario {
         double profundidad = sc.nextDouble();
         
         System.out.println("Ingrese la ubicacion de la propiedad");
-        String ubicacion = sc.nextLine();
+        System.out.print("Ingrese Provincia:"); String provincia = sc.nextLine();
+        System.out.print("Ingrese Ciudad:"); String ciudad = sc.nextLine();
+        System.out.print("Ingrese Direccion:"); String direccion = sc.nextLine();
+        System.out.println("Ingrese Sector:"); String sector = sc.nextLine();
+        String[] ubicacionPropiedad = new String[]{provincia,ciudad,direccion,sector};
         
         System.out.println("Ingrese el id de la propiedad");
         while(!sc.hasNextInt()){
@@ -146,16 +151,38 @@ public class Administrador extends Usuario {
             }
         int id=sc.nextInt();
         
-        System.out.println("Ingrese el nombre del Agente al que se le asiganara la propiedad");
+        System.out.println("Ingrese el numero del Agente al que se le asiganara la propiedad");
+        int i=0;
+        for(Usuario aventa: UIUsuarios.getListaUsuarios()){
+                i+=1;
+                if(aventa!=null){
+                    if(aventa instanceof Agente_Venta){
+                        Agente_Venta agent = (Agente_Venta)aventa;
+                        System.out.print(i+") "+agent.getUser()+"\n");
+                    }
+                }
+        }
+        
+        int numAgente = sc.nextInt();
+        do{
+            System.out.println("Ingrese numero Correcto");
+        }while(!UIUsuarios.verificarSiesAgente(numAgente-1));
+        
+        
+        Agente_Venta agenteElejido = (Agente_Venta)UIUsuarios.getListaUsuarios().get(numAgente-1);
+        
+        
+        
+        
         String Agente = sc.nextLine();
         
         if (tipo.toLowerCase().equals("terreno")){
-            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion, id, Agente);
+            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad,ubicacionPropiedad,agenteElejido);
             //UIUsuarios.getAnimales().add(perro);
         }
         
         else if(tipo.toLowerCase().equals("casa")){
-            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion, id, Agente);
+            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacionPropiedad, agenteElejido);
         }
      }
      private static void opcion2AD(){

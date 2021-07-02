@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class Consulta {
     private LocalDate fechaconsulta;
     private int codigo;
-    private String Agente;
+    private Agente_Venta agente;
     private boolean isRespondida;
     private String pregunta;
     private ArrayList<Conversacion> conversa;
     
-    public Consulta(LocalDate fechaconsulta, int codigo, String Agente, String pregunta, boolean isRespondido) {
+    public Consulta(LocalDate fechaconsulta, int codigo,Agente_Venta agente, String pregunta, boolean isRespondido) {
         this.pregunta=pregunta;
         this.fechaconsulta=fechaconsulta;
-        this.Agente=Agente;
+        this.agente=agente;
         this.isRespondida=isRespondida;
         this.codigo=codigo;
         ArrayList<Conversacion> conversa = new ArrayList<>();
@@ -38,8 +38,8 @@ public class Consulta {
         return codigo;
     }
 
-    public String getAgente() {
-        return Agente;
+    public Agente_Venta getAgente() {
+        return agente;
     }
 
     public ArrayList<Conversacion> getConversa() {
@@ -62,8 +62,8 @@ public class Consulta {
         this.codigo = codigo;
     }
 
-    public void setAgente(String Agente) {
-        this.Agente = Agente;
+    public void setAgente(Agente_Venta agente) {
+        this.agente = agente;
     }
 
     public void setIsRespondida(boolean isRespondida) {

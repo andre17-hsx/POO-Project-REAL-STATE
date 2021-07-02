@@ -29,7 +29,7 @@ public class Agente_Venta extends Usuario {
     }
     
     
-    public static void MostrarMenuAdministrador(){
+    public static void MostrarMenuAdministracion(){
         Scanner  sc = new Scanner(System.in);
         String opcion;
         System.out.println("Bienvenido :)");
@@ -82,5 +82,6 @@ public class Agente_Venta extends Usuario {
     public void ResponderConsulta(){}
     
     //public void RegistrarVenta(Venta){}
+    
     
 }

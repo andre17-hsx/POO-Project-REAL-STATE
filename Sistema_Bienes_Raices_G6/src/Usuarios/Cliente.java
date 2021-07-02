@@ -12,7 +12,7 @@ import Propiedades.TipoTerreno;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import sistema_bienes_raices_g6.UIUsuarios;
+import sistema_bienes_raices_g6.*;
 /**
  *
  * @author andya
@@ -25,7 +25,7 @@ public class Cliente extends Usuario{
     this.ListaConsultas = ListaConsultas;
     }
     
-    public void MostrarMenuCliente(){
+    public static void MostrarMenuCliente(){
         Scanner  sc = new Scanner(System.in);
         String opcion;
         System.out.println("Bienvenido :)");
@@ -59,9 +59,9 @@ public class Cliente extends Usuario{
                     break;
             }
         }while(!opcion.equals("5"));
-        }
+}
     
-    private void opcion1C(){
+    private static void opcion1C(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcion Consular Propiedades");
         System.out.println("Ingrese Tipo de propiedad: (Casa o Terreno)");
@@ -138,11 +138,11 @@ public class Cliente extends Usuario{
         for (Propiedad p: UIUsuarios.getpropiedades()){
                 if (tipo.toLowerCase().equals("casa") && p instanceof Casa && preciomin>=(p.getPrecio()) && preciomax<=(p.getPrecio()) && ubicacion.toLowerCase().equals(p.getUbicacion()) && estadoVenta==p.isEstadoVenta()){
                 Casa c = (Casa)p;
-                System.out.println("Codigo  Precio  Tamaño  Pisos  Habitaciones  Ubicacion  Consultada" + "\n" +c.getId() + "  " + c.getPrecio() + "  " + c.getM2() + "  " + c.getNumPisos() + "  " + c.getUbicacion() + "  " + c.getUbicacion() + "  " + c.isConsultado());
+                System.out.println("Codigo  Precio  Tamaño[M2]  Pisos  Habitaciones  Ubicacion  Consultada" + "\n" +c.getId() + "  " + c.getPrecio() + "  " + (c.getAncho()*c.getProfundidad()) + "  " + c.getNumPisos() + "  " + c.getHabitaciones() + "  " + c.getUbicacion() + "  " + c.isConsultado());
                 }
                 else if(tipo.toLowerCase().equals("terreno") && p instanceof Terreno && preciomin>=(p.getPrecio()) && preciomax<=(p.getPrecio()) && ubicacion.toLowerCase().equals(p.getUbicacion()) && estadoVenta==p.isEstadoVenta()){
                 Terreno t = (Terreno)p;
-                System.out.println("Codigo  Tipo  Precio  Tamaño  Ubicacion Consultada" + "\n" +t.getId() + "  " + t.getTipo() + "  " + t.getPrecio() + "  " + t.getM2() + "  " + t.getUbicacion() + "  " + t.isConsultado());
+                System.out.println("Codigo  Tipo  Precio  Tamaño[M2]  Ubicacion Consultada" + "\n" +t.getId() + "  " + t.getTipo() + "  " + t.getPrecio() + "  " + (t.getAncho()*t.getProfundidad()) + "  " + t.getUbicacion() + "  " + t.isConsultado());
                 }
             
         }
@@ -154,11 +154,11 @@ public class Cliente extends Usuario{
                 if(Id==p.getId()){
                   if (p instanceof Casa){
                     Casa c = (Casa)p;
-                    System.out.println("Codigo  Precio  Tamaño  Pisos  Habitaciones  Ubicacion  Consultada" + "\n" +c.getId() + "  " + c.getPrecio() + "  " + c.getM2() + "  " + c.getNumPisos() + "  " + c.getUbicacion() + "  " + c.getUbicacion() + "  " + c.isConsultado());
+                    System.out.println("Codigo  Precio  Tamaño[M2]  Pisos  Habitaciones  Ubicacion  Consultada" + "\n" +c.getId() + "  " + c.getPrecio() + "  " + (c.getAncho()*c.getProfundidad()) + "  " + c.getNumPisos() + "  " + c.getHabitaciones() + "  " + c.getUbicacion() + "  " + c.isConsultado());
                     }
                     else if(p instanceof Terreno ){
                     Terreno t = (Terreno)p;
-                    System.out.println("Codigo  Tipo  Precio  Tamaño  Ubicacion Consultada" + "\n" +t.getId() + "  " + t.getTipo() + "  " + t.getPrecio() + "  " + t.getM2() + "  " + t.getUbicacion() + "  " + t.isConsultado());
+                    System.out.println("Codigo  Tipo  Precio  Tamaño[M2]  Ubicacion Consultada" + "\n" +t.getId() + "  " + t.getTipo() + "  " + t.getPrecio() + "  " + (t.getAncho()*t.getProfundidad()) + "  " + t.getUbicacion() + "  " + t.isConsultado());
                     }  
                 System.out.println("Desea realizar una consulta (si/no)");
                 String consultar = sc.nextLine();
@@ -170,7 +170,7 @@ public class Cliente extends Usuario{
                       LocalDate fecha = LocalDate.now();
                       p.setConsultado(true);
                       Consulta c = new Consulta(fecha, p.getId(), p.getAgente(), consulta, false);
-                      ListaConsultas.add(c);
+                      UIUsuarios.getListaConsultas().add(c);
                     }
                 }
             
@@ -216,6 +216,8 @@ public class Cliente extends Usuario{
     sc.close();
     }
     private static void opcion3C(){
+        Notificacion alerta;
+        String mail;
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcion crear Alerta");
         System.out.println("Ingrese sus filtros de Alerta");
@@ -293,12 +295,22 @@ public class Cliente extends Usuario{
         double profundidad = sc.nextDouble();
         
         System.out.println("Ingrese la ubicacion de la propiedad");
-        String ubicacion = sc.nextLine();
+                
+        System.out.println("Ingrese la ubicacion de la propiedad");
+        System.out.print("Ingrese Provincia:"); String provincia = sc.nextLine();
+        System.out.print("Ingrese Ciudad:"); String ciudad = sc.nextLine();
+        System.out.print("Ingrese Direccion:"); String direccion = sc.nextLine();
+        System.out.println("Ingrese Sector:"); String sector = sc.nextLine();
+        String[] ubicacion = new String[]{provincia,ciudad,direccion,sector};
         
         if (tipo.toLowerCase().equals("terreno")){
-            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion);
+            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion,null);
+            System.out.println("Ingrese correo electronico"); 
+            mail = sc.nextLine();
+            alerta = new Notificacion(mail,terreno);
+            alerta.registrarNotificacion(alerta);
             
-            for (Propiedad p: UIUsuarios.getpropiedades()){
+        /*for (Propiedad p: UIUsuarios.getListaPropiedades()){ //--> Aqui te puse getListaPropiedades porque salia error!!
             if (p instanceof Terreno && !p.isEstadoVenta()){
                 Terreno t = (Terreno) p;
                 if (t.equals(terreno)){
@@ -306,13 +318,17 @@ public class Cliente extends Usuario{
                     System.out.println("Alerta creada exitosamente");
                     }
                 }   
-            }
-        }
+           // }
+        }*/
         
-        else if(tipo.toLowerCase().equals("casa")){
-            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion);
+        }else if(tipo.toLowerCase().equals("casa")){
+            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion,null);
+            System.out.println("Ingrese correo electronico"); 
+            mail = sc.nextLine();
+            alerta = new Notificacion(mail,casita);
+            alerta.registrarNotificacion(alerta);
             
-            for (Propiedad p: UIUsuarios.getpropiedades()){
+           /* for (Propiedad p: UIUsuarios.getpropiedades()){
             if (p instanceof Casa && !p.isEstadoVenta()){
                 Casa c = (Casa) p;
                 if (c.equals(casita)){
@@ -320,9 +336,9 @@ public class Cliente extends Usuario{
                     System.out.println("Alerta creada exitosamente");
                     }
                 }   
-            }         
+            }*/         
         }
-        System.out.println("No hay propiedades con estas caracterizticas");
+        //System.out.println("No hay propiedades con estas caracterizticas");
         
 
     }   
