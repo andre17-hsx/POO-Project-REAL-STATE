@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author andya
  */
-public abstract class Usuario {
+public class Usuario {
     protected String user;
     protected String password;
     protected String nombre;
@@ -84,12 +84,25 @@ public abstract class Usuario {
         if(obj!=null){
             if (obj instanceof Usuario){
                 Usuario u = (Usuario)obj;
-                if (user.equals(u.getUser())){
+                if (user.equals(u.getUser()) && password.equals(u.getPassword())){
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.user);
+        hash = 29 * hash + Objects.hashCode(this.password);
+        hash = 29 * hash + Objects.hashCode(this.nombre);
+        hash = 29 * hash + this.cedula;
+        hash = 29 * hash + Objects.hashCode(this.correo);
+        hash = 29 * hash + Objects.hashCode(this.Tipo);
+        hash = 29 * hash + Objects.hashCode(this.FechaInicio);
+        return hash;
     }
     
 }

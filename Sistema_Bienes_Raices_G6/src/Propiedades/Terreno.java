@@ -11,14 +11,19 @@ package Propiedades;
 public class Terreno extends Propiedad {
     private TipoTerreno tipo;
 
-    public Terreno(TipoTerreno tipo,double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado) {
-        super(precio, m2, profundidad, ubicacion, id, estadoVenta, consultado);
+    public Terreno(TipoTerreno tipo,double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado, String Agente) {
+        super(precio, m2, profundidad, ubicacion, id, estadoVenta, consultado, Agente);
         this.tipo = tipo;
     }
 
-    public Terreno(TipoTerreno tipo, double precio, double m2, double profundidad, String ubicacion, int id) {
-        super(precio, m2, profundidad, ubicacion, id);
+    public Terreno(TipoTerreno tipo, double precio, double m2, double profundidad, String ubicacion, int id, String Agente) {
+        super(precio, m2, profundidad, ubicacion, id, Agente);
         this.tipo = tipo;
+    }
+
+    public Terreno(TipoTerreno tipo, double precio, double m2, double profundidad, String ubicacion) {
+            super(precio, m2, profundidad, ubicacion);
+            this.tipo=tipo;
     }
     
     public TipoTerreno getTipo() {

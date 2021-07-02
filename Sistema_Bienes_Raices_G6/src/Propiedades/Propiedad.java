@@ -18,8 +18,9 @@ private String ubicacion; //[provincia, ciudad, dir, sector]
 private int id;
 private boolean estadoVenta;
 private boolean consultado;
+private String Agente;
 
-    public Propiedad(double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado) {
+    public Propiedad(double precio, double m2, double profundidad, String ubicacion, int id, boolean estadoVenta, boolean consultado, String Agente) {
         this.precio = precio;
         this.m2 = m2;
         this.profundidad = profundidad;
@@ -27,17 +28,23 @@ private boolean consultado;
         this.id = id;
         this.estadoVenta = estadoVenta;
         this.consultado = consultado;
+        this.Agente = Agente;
     }
     
     /*@overwrite -> Se estable un constructor donde recibe parametros minimos necesarios
     para inicialiar una propiedad, los cuales serian todos excepto los estados
     de estadoVenta y consultado que por defalut serian falsos.
     */ 
-    public Propiedad(double precio, double m2, double profundidad, String ubicacion, int id){
-            this(precio, m2, profundidad, ubicacion, id,false,false);
-    }
+   public Propiedad(double precio, double m2, double profundidad, String ubicacion, int id, String Agente){
+            this(precio, m2, profundidad, ubicacion, id,false,false, Agente);
+   }
     
-    
+    public Propiedad(double precio, double m2, double profundidad, String ubicacion){
+            this.precio=precio;
+            this.m2=m2;
+            this.profundidad=profundidad;
+            this.ubicacion=ubicacion;
+   } 
     
     /*@overwrite -> Se estable un constructor pque no recibe parámetros
     el cual inicializa a todos los atributos con valores por defecto.
@@ -46,7 +53,7 @@ private boolean consultado;
         this.precio = 0.00;
         this.m2 = 0.00;
         this.profundidad = 0.00;
-        this.ubicacion = "Guayaquil";
+        this.ubicacion = "Guayaquil, Norte";
         this.id = 0;
         this.estadoVenta = false;
         this.consultado = false;
@@ -82,6 +89,10 @@ private boolean consultado;
 
     public boolean isConsultado() {
         return consultado;
+    }
+
+    public String getAgente() {
+        return Agente;
     }
 
     
@@ -121,10 +132,6 @@ private boolean consultado;
     
     
     //@Metodos de clase Propiedad
-    
-    public void newPropiedad(Agente_Venta agenteDeVentas){
-        
-    }
     
     public void mostrarInformacion(){
 
