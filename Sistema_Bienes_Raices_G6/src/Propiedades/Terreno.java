@@ -40,7 +40,8 @@ public class Terreno extends Propiedad {
     public void setTipo(TipoTerreno tipo) {
         this.tipo = tipo;
     }
-        
+    
+       
     
     
 }

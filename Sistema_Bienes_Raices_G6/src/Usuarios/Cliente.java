@@ -11,6 +11,7 @@ import Propiedades.Casa;
 import Propiedades.Propiedad;
 import Propiedades.Terreno;
 import Propiedades.TipoTerreno;
+import static Usuarios.Administrador.esDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,10 +24,15 @@ public class Cliente extends Usuario{
     private ArrayList<Consulta> ListaConsultas;
 
     public Cliente(String user, String password, String nombre, int cedula, String correo, ArrayList<Consulta> ListaConsultas){
-    super(user, password, nombre, cedula, correo, TipoUsuario.Cliente);
+    super(user, password, nombre, cedula, correo/*, TipoUsuario.Cliente*/);
     this.ListaConsultas = ListaConsultas;
     }
     
+    public Cliente(String user, String password,String nombre, int cedula,String correo){
+        super(user,password,nombre,cedula, correo);
+    }
+    
+    //Bro este constructor tu lo usaste para crear 
     public Cliente(String nombre, String correo, int cedula){
         super(nombre, correo, cedula);
     }
@@ -35,14 +41,15 @@ public class Cliente extends Usuario{
     public static void MostrarMenuCliente(){
         Scanner  sc = new Scanner(System.in);
         String opcion;
-        System.out.println("Bienvenido :)");
+        System.out.println("\t\tBienvenido :)");
+        System.out.println("\nOPCIONES DE CLIENTE\n");
         do{
             System.out.println("1. Consultar Propiedad");
             System.out.println("2. Buzon de Consultas");
             System.out.println("3. Crear Alerta");
             System.out.println("4. Simular Prestamo");
             System.out.println("5. Cerrar sesion");
-            System.out.println("Ingrese una opcion: ");
+            System.out.print("Ingrese una opcion: ");
             opcion = sc.nextLine();
             switch(opcion){
                 case "1":
@@ -122,21 +129,26 @@ public class Cliente extends Usuario{
         }
     
         System.out.println("Ingrese el precio minimo de la propiedad");
-        while(!(sc.hasNextDouble()||sc.hasNextInt())){
-                sc.nextLine();
-                System.out.println("Precio incorrecto");
-                System.out.println("Ingrese el precio de la propiedad");
+        String valor = sc.nextLine();
+        while(!esDecimal(valor)){
+                System.out.println("Precio minimo incorrecto");
+                System.out.print("Ingrese precio correctamente:");
+                valor = sc.nextLine();
             }
-        double preciomin = sc.nextDouble();
+
+        Double preciomin = Double.parseDouble(valor);
+       
         
         System.out.println("Ingrese el precio maximo de la propiedad");
-        while(!(sc.hasNextDouble()||sc.hasNextInt())){
-                sc.nextLine();
-                System.out.println("Precio incorrecto");
-                System.out.println("Ingrese el precio de la propiedad");
+        valor = sc.nextLine();
+        while(!esDecimal(valor)){
+                System.out.println("Precio maximo incorrecto");
+                System.out.print("Ingrese precio correctamente:");
+                valor = sc.nextLine();
             }
-        double preciomax = sc.nextDouble();
+        Double preciomax = Double.parseDouble(valor);
         
+
         System.out.println("Ingrese la ubicacion de la propiedad");
         String ubicacion = sc.nextLine();
         
@@ -278,28 +290,36 @@ public class Cliente extends Usuario{
         }
         
         System.out.println("Ingrese el precio de la propiedad");
-        while(!(sc.hasNextDouble()||sc.hasNextInt())){
-                sc.nextLine();
+        String valor = sc.nextLine();
+        while(!esDecimal(valor)){
                 System.out.println("Precio incorrecto");
-                System.out.println("Ingrese el precio de la propiedad");
+                System.out.print("Ingrese precio correctamente:");
+                valor = sc.nextLine();
             }
-        double precio = sc.nextDouble();
+
+        Double precio = Double.parseDouble(valor);
         
         System.out.println("Ingrese el ancho de la propiedad");
-        while(!(sc.hasNextDouble()||sc.hasNextInt())){
-                sc.nextLine();
-                System.out.println("Ancho incorrecto");
-                System.out.println("Ingrese el ancho de la propiedad");
+        valor = sc.nextLine();
+        while(!esDecimal(valor)){
+                System.out.println("Precio incorrecto");
+                System.out.print("Ingrese precio correctamente:");
+                valor = sc.nextLine();
             }
-        double ancho = sc.nextDouble();
+
+        Double ancho = Double.parseDouble(valor);
+
         
         System.out.println("Ingrese la profundidad de la propiedad");
-        while(!(sc.hasNextDouble()||sc.hasNextInt())){
-                sc.nextLine();
-                System.out.println("Profundidad incorrecto");
-                System.out.println("Ingrese la profundidad de la propiedad");
+        valor = sc.nextLine();
+        while(!esDecimal(valor)){
+                System.out.println("Precio incorrecto");
+                System.out.print("Ingrese precio correctamente:");
+                valor = sc.nextLine();
             }
-        double profundidad = sc.nextDouble();
+
+        Double profundidad = Double.parseDouble(valor);
+
         
         System.out.println("Ingrese la ubicacion de la propiedad");
                 
@@ -307,7 +327,7 @@ public class Cliente extends Usuario{
         System.out.print("Ingrese Provincia:"); String provincia = sc.nextLine();
         System.out.print("Ingrese Ciudad:"); String ciudad = sc.nextLine();
         System.out.print("Ingrese Direccion:"); String direccion = sc.nextLine();
-        System.out.println("Ingrese Sector:"); String sector = sc.nextLine();
+        System.out.print("Ingrese Sector:"); String sector = sc.nextLine();
         String[] ubicacion = new String[]{provincia,ciudad,direccion,sector};  
         
         if (tipo.toLowerCase().equals("terreno")){
@@ -317,7 +337,7 @@ public class Cliente extends Usuario{
             alerta = new Notificacion(mail,terreno);
             alerta.registrarNotificacion(alerta);
             
-        /*for (Propiedad p: UIUsuarios.getListaPropiedades()){ //--> Aqui te puse getListaPropiedades porque salia error!!
+        for (Propiedad p: UIUsuarios.getListaPropiedades()){ //--> Aqui te puse getListaPropiedades porque salia error!!
             if (p instanceof Terreno && !p.isEstadoVenta()){
                 Terreno t = (Terreno) p;
                 if (t.equals(terreno)){
@@ -326,7 +346,7 @@ public class Cliente extends Usuario{
                     }
                 }   
            // }
-        }*/
+        }
         
         }else if(tipo.toLowerCase().equals("casa")){
             Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion);
@@ -335,7 +355,7 @@ public class Cliente extends Usuario{
             alerta = new Notificacion(mail,casita);
             alerta.registrarNotificacion(alerta);
             
-           /* for (Propiedad p: UIUsuarios.getpropiedades()){
+            for (Propiedad p: UIUsuarios.getpropiedades()){
             if (p instanceof Casa && !p.isEstadoVenta()){
                 Casa c = (Casa) p;
                 if (c.equals(casita)){
@@ -343,7 +363,7 @@ public class Cliente extends Usuario{
                     System.out.println("Alerta creada exitosamente");
                     }
                 }   
-            }*/         
+            }       
         }
         //System.out.println("No hay propiedades con estas caracterizticas");
         

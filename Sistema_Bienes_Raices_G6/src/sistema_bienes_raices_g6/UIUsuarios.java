@@ -21,32 +21,11 @@ public class UIUsuarios {
     private static ArrayList<Propiedad> propiedades;
     private static ArrayList<Consulta> consultas;
     private static ArrayList<Notificacion> notificaciones;
-    private static ArrayList<Agente_Venta> Agentes;
-
+    
 
     public static Iterable<Agente_Venta> getAgentes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
-    //Registro de Agentes;
-    Agente_Venta Ag1= new Agente_Venta("Jose_17", "Abc17000", "Jose Parrales", 0706404512, "josep@gmail.com", 1);
-    Agente_Venta Ag2= new Agente_Venta("Pedrin_07", "Xyz17000", "Pedro Santana", 0704541212, "pedri17@gmail.com", 2);
-    Agente_Venta Ag3= new Agente_Venta("Alisson_L", "Hjk17000", "Alisson Herrera", 0703504512, "aliss@gmail.com", 3);
-    
-    
-    //Registro clinete;
-    Cliente C1 = new Cliente("Maria", "mari@gmail.com", 0706452102);
-    
-    //Registro propiedades;   (((aqui no se porque me da error, mira si a ti tambien)))
-    
-    String[] u = new String[4];
-    u[0] = "Guayas"; u[1] = "Guayaquil"; u[2] = "Alborada" ; u[3] = "7ma etapa";
-    
-    Propiedad C1= new Casa(2, 4, 50000, 12.5, 10, u, Ag1, 1);
-    
-    
-    
     
     public static Iterable<Usuario> getUsuarios() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -70,7 +49,43 @@ public class UIUsuarios {
         propiedades = new ArrayList<Propiedad>();
         consultas = new ArrayList<Consulta>();
         notificaciones = new ArrayList<Notificacion>();
-       
+             
+        //Registro de Agentes iniciales;
+        Usuario ag1= new Agente_Venta("Jose_17", "Abc17000", "Jose Parrales", 0706404512, "josep@gmail.com", 1);
+        Usuario ag2= new Agente_Venta("Pedrin_07", "Xyz17000", "Pedro Santana", 0704541212, "pedri17@gmail.com", 2);
+        Usuario ag3= new Agente_Venta("Alisson_L", "Hjk17000", "Alisson Herrera", 0703504512, "aliss@gmail.com", 3);
+   
+        //Registro Clinetes iniciales;
+        Usuario C1 = new Cliente("maria20","m1234","Maria", 0706452102,"maria@gmail.com");
+        
+        //Registro de Administradores;
+        Usuario admin1 = new Administrador("admin1","admin1","Andre",1102101478,"andre@gmail.com");
+        Usuario admin2 = new Administrador("admi2","admin2","Jefferson",93024558,"jefferson@gmail.com");
+   
+        //Se registran todos los usuarios creados a la lista de Usuarios
+        usuarios.add(ag1);
+        usuarios.add(ag2);
+        usuarios.add(ag3);
+        usuarios.add(C1);
+        usuarios.add(admin1);
+        usuarios.add(admin2);
+    
+        //Registro Propiedades iniciales 2 Terreno, 2 Casas;
+        String[] ubicacion1 = new String[]{"Guayas","Guayaquil","Calle A y la 7ma","SurOeste"};
+        String[] ubicacion2 = new String[]{"Pichincha","Quito","Av.de los Shyris","Sur"};
+        String[] ubicacion3 = new String[]{"Guayas","Guayauil","7ma etapa","Alborada"};
+        String[] ubicacion4 = new String[]{"Guayas","Guayaquil","5ta etapa","Alborada"};
+        Propiedad terreno1 = new Terreno(TipoTerreno.VIVIENDA,5000.0,20.0,20.0,ubicacion1,(Agente_Venta)ag1,1);
+        Propiedad terreno2 = new Terreno(TipoTerreno.COMERCIAL,50000,20,50,ubicacion2,(Agente_Venta)ag2,2);
+        Propiedad casita1 = new Casa(2,4,10000,4.7,10.5,ubicacion3,(Agente_Venta)ag1,3);
+        Propiedad casita2 = new Casa(3,10,20000,5.0,10.5,ubicacion4,(Agente_Venta)ag3,4);
+    
+        //Se resitran todas las propiedades creadas a la lista de Propiedades
+        propiedades.add(terreno1);
+        propiedades.add(terreno2);
+        propiedades.add(casita1);
+        propiedades.add(casita2);
+ 
     }
     
     //@Interfaz del Sistema con el Usuario
@@ -78,7 +93,8 @@ public class UIUsuarios {
         Scanner sc = new Scanner(System.in);
         Scanner scan = new Scanner(System.in);
         Scanner scanCorreo = new Scanner(System.in);
-        Usuario user, userSystem;
+        Scanner scanLogging = new Scanner(System.in);
+        //Usuario user, userSystem;
         int menu=0;
         
         do{
@@ -100,20 +116,35 @@ public class UIUsuarios {
             //y dependiendo de esto muestra los menus correspondientes
                 case 1:
                     System.out.println("Ingrese sus Datos");
-                    System.out.println("Usuario: ");
-                    String usuario = sc.nextLine();
-                    System.out.println("Password: ");
-                    String password = sc.nextLine();
-                    user = new Usuario(usuario,password);
-                    userSystem = user.verificarUsuario(user, usuarios);
-                
+                    System.out.print("Usuario: ");
+                    String usuario = scanLogging.nextLine();
+                    System.out.print("Password: ");
+                    String password = scanLogging.nextLine();
+                    Usuario user = new Usuario(usuario,password);
+                    Usuario userSystem = user.verificarUsuario(user,UIUsuarios.getListaUsuarios());
+                    
+                     while (userSystem == null) { //--> entra al bucle si el usuario no coincide con ninguno de la lista
+                        System.out.println("\nEl usuario o constrasenia son invalidas...");
+                        System.out.print("Usuario: ");
+                        usuario = scanLogging.nextLine();
+                        System.out.print("Contraseña: ");
+                        password = scanLogging.nextLine();
+                        user = new Usuario(usuario, password);
+                        userSystem = user.verificarUsuario(user, UIUsuarios.getListaUsuarios());
+                    }
+                    
+                    
                     if(userSystem instanceof Administrador){
+                        System.out.println("Eres un Admin... ;p");
                         Administrador.mostrarMenuAdministrador();
                     }else if(userSystem instanceof Cliente){
+                        System.out.println("Eres un CLiente");
                         Cliente.MostrarMenuCliente();
                     }else if(userSystem instanceof Agente_Venta){
+                        System.out.println("Eres un Agente");
                         Agente_Venta.MostrarMenuAgente();
                     }
+                    
                     
                 break;
                 
@@ -154,7 +185,7 @@ public class UIUsuarios {
        
         sc.close();
         scan.close();
-        
+        scanLogging.close();
         
     }
     

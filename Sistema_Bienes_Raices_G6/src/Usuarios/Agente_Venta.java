@@ -25,7 +25,7 @@ public class Agente_Venta extends Usuario {
     private int id;
     
      public Agente_Venta(String user, String password, String nombre, int cedula, String correo, int id) {
-        super(user, password, nombre, cedula, correo, TipoUsuario.Agente_Venta);
+        super(user, password, nombre, cedula, correo/*, TipoUsuario.Agente_Venta*/);
         VentasRealizadas = new ArrayList<>();
         contador= 0;
         this.id = id;
@@ -35,12 +35,13 @@ public class Agente_Venta extends Usuario {
     public static void MostrarMenuAgente(){
         Scanner  sc = new Scanner(System.in);
         String opcion;
-        System.out.println("Bienvenido :)");
+        System.out.println("\t\tBienvenido :)");
+        System.out.println("\nOPCIONES DE AGENTE DE VENTAS\n");
         do{
             System.out.println("1. Revisar Buzon");
             System.out.println("2. Registrar Venta");
             System.out.println("3. Cerrar sesion");
-            System.out.println("Ingrese una opcion: ");
+            System.out.print("Ingrese una opcion: ");
             opcion = sc.nextLine();
             switch(opcion){
                 case "1":
@@ -101,11 +102,17 @@ public class Agente_Venta extends Usuario {
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcion Resgistrar Venta");
         System.out.println("Ingrese los datos del cliente al que se realizo la venta");
-        System.out.println("Ingrese el nombre del cliente");
+        System.out.print("Ingrese el nombre del cliente:");
         String nombrec = sc.nextLine();
-        System.out.println("Ingrese el correo del cliente");
+        System.out.print("Ingrese el correo del cliente");
         String correoc= sc.nextLine();
         System.out.println("Ingrese los datos la cedula del cliente");
+        while(!sc.hasNextInt()){
+                sc.nextLine();
+                System.out.println("Cedula Identidad Incorrecta");
+                System.out.print("Ingrese su identificacion correctamente:");
+            }
+
         int cedulac= sc.nextInt();
         sc.nextLine();
         
@@ -166,5 +173,9 @@ public class Agente_Venta extends Usuario {
     public void mostrarInformacion(){
         System.out.println("Ventas:" + "\n" + VentasRealizadas.size() + "\n"+ "Consultas" + "\n"+ contador);
     }
+    
+    
+    
 }
+
 

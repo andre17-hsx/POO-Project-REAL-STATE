@@ -18,17 +18,17 @@ public class Usuario {
     protected String nombre;
     protected int cedula;
     protected String correo;
-    protected TipoUsuario Tipo;
+    //protected TipoUsuario Tipo;
     private LocalDate FechaInicio;
     
     
-    public Usuario(String user, String password, String nombre, int cedula, String correo, TipoUsuario Tipo){
+    public Usuario(String user, String password, String nombre, int cedula, String correo/*, TipoUsuario Tipo*/){
         this.user= user;
         this.password=password;
         this.nombre=nombre;
         this.cedula=cedula;
         this.correo=correo;
-        this.Tipo= Tipo;
+        //this.Tipo= Tipo;
     }
     
     public Usuario(String user, String password){
@@ -70,13 +70,13 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public void setTipo(TipoUsuario Tipo) {
-        this.Tipo = Tipo;
-    }
+    /*public void setTipo(TipoUsuario Tipo) {
+        //this.Tipo = Tipo;
+    }*/
     
     public Usuario verificarUsuario(Usuario usuario, ArrayList<Usuario> usuarios) {
-        if (!usuarios.isEmpty()) {
-            for (Usuario usu : usuarios) {
+        if (!usuarios.isEmpty()){
+            for (Usuario usu : usuarios){
                 if (usu.equals(usuario)) {
                     return usu;
                 }
@@ -91,14 +91,16 @@ public class Usuario {
             if (obj instanceof Usuario){
                 Usuario u = (Usuario)obj;
                 if (user.equals(u.getUser()) && password.equals(u.getPassword())){
+                    System.out.println("Es un usuario..");
                     return true;
                 }
             }
         }
+        System.out.println("No lo es");
         return false;
     }
 
-    @Override
+    //@Override
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + Objects.hashCode(this.user);
@@ -106,7 +108,7 @@ public class Usuario {
         hash = 29 * hash + Objects.hashCode(this.nombre);
         hash = 29 * hash + this.cedula;
         hash = 29 * hash + Objects.hashCode(this.correo);
-        hash = 29 * hash + Objects.hashCode(this.Tipo);
+        //hash = 29 * hash + Objects.hashCode(this.Tipo);
         hash = 29 * hash + Objects.hashCode(this.FechaInicio);
         return hash;
     }

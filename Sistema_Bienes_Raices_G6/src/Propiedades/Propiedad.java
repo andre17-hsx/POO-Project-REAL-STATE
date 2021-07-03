@@ -75,7 +75,11 @@ private Agente_Venta agente;
     public double getProfundidad() {
         return profundidad;
     }
-
+    
+    //retorna el valor en Metros cuadrados
+    public double getTamanio(){
+        return ancho*profundidad;
+    }
     public String[] getUbicacion() {
         return ubicacion;
     }
@@ -147,5 +151,6 @@ private Agente_Venta agente;
         }else{System.out.println("- Estado de Venta \t: NO");}
         
     }
+    
     
 }
