@@ -25,7 +25,7 @@ private Agente_Venta agente;
 
 
     //Constructor#1 de la Clase Propiedad
-    public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente) {
+    public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente, int id) {
         this.precio = precio;
         this.ancho = ancho;
         this.profundidad = profundidad;
@@ -33,15 +33,22 @@ private Agente_Venta agente;
         this.estadoVenta = estadoVenta;
         this.consultado = consultado;
         this.agente = agente;
+        this.id = id;
     }
     
     
     //@OverLoading de Constructor#1 Para instanciar una propiedad con los valores iniciales minimos
    //para crear, donde estadoVenta y consultado inician con FALSE.
-    public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, Agente_Venta agente){
-            this(precio, ancho, profundidad, ubicacion,false,false,agente);
+    public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, Agente_Venta agente, int id){
+            this(precio, ancho, profundidad, ubicacion,false,false,agente, id);
     }
     
+      public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion){
+        this.precio = precio;
+        this.ancho = ancho;
+        this.profundidad = profundidad;
+        this.ubicacion = ubicacion;
+    }
 
     /*//@OverLoading, creamos un constructor sin argumentos donde colocamos valores iniciales´por defecto  
     public Propiedad(){

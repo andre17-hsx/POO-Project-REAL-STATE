@@ -21,7 +21,33 @@ public class UIUsuarios {
     private static ArrayList<Propiedad> propiedades;
     private static ArrayList<Consulta> consultas;
     private static ArrayList<Notificacion> notificaciones;
+    private static ArrayList<Agente_Venta> Agentes;
 
+
+    public static Iterable<Agente_Venta> getAgentes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    //Registro de Agentes;
+    Agente_Venta Ag1= new Agente_Venta("Jose_17", "Abc17000", "Jose Parrales", 0706404512, "josep@gmail.com", 1);
+    Agente_Venta Ag2= new Agente_Venta("Pedrin_07", "Xyz17000", "Pedro Santana", 0704541212, "pedri17@gmail.com", 2);
+    Agente_Venta Ag3= new Agente_Venta("Alisson_L", "Hjk17000", "Alisson Herrera", 0703504512, "aliss@gmail.com", 3);
+    
+    
+    //Registro clinete;
+    Cliente C1 = new Cliente("Maria", "mari@gmail.com", 0706452102);
+    
+    //Registro propiedades;   (((aqui no se porque me da error, mira si a ti tambien)))
+    
+    String[] u = new String[4];
+    u[0] = "Guayas"; u[1] = "Guayaquil"; u[2] = "Alborada" ; u[3] = "7ma etapa";
+    
+    Propiedad C1= new Casa(2, 4, 50000, 12.5, 10, u, Ag1, 1);
+    
+    
+    
+    
     public static Iterable<Usuario> getUsuarios() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -86,7 +112,7 @@ public class UIUsuarios {
                     }else if(userSystem instanceof Cliente){
                         Cliente.MostrarMenuCliente();
                     }else if(userSystem instanceof Agente_Venta){
-                        Agente_Venta.MostrarMenuAdministracion();
+                        Agente_Venta.MostrarMenuAgente();
                     }
                     
                 break;

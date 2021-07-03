@@ -8,9 +8,11 @@ package Usuarios;
 import Propiedades.Terreno;
 import Propiedades.Casa;
 import Propiedades.TipoTerreno;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import sistema_bienes_raices_g6.UIUsuarios;
+import sistema_bienes_raices_g6.Venta;
 
 /**
  *
@@ -171,18 +173,15 @@ public class Administrador extends Usuario {
         
         Agente_Venta agenteElejido = (Agente_Venta)UIUsuarios.getListaUsuarios().get(numAgente-1);
         
-        
-        
-        
-        String Agente = sc.nextLine();
-        
+        System.out.println("Ingrese el id de la propiedad");
+                
         if (tipo.toLowerCase().equals("terreno")){
-            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad,ubicacionPropiedad,agenteElejido);
+            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad,ubicacionPropiedad, false, false, agenteElejido, id);
             //UIUsuarios.getAnimales().add(perro);
         }
         
         else if(tipo.toLowerCase().equals("casa")){
-            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacionPropiedad, agenteElejido);
+            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacionPropiedad, false, false, agenteElejido, id);
         }
      }
      private static void opcion2AD(){
@@ -206,18 +205,47 @@ public class Administrador extends Usuario {
         System.out.println("Ingrese el correo del Agente:");
         String correo = sc.nextLine();
         
-        Agente_Venta Agente = new Agente_Venta(usuario, contraseña, nombre, identificacion, correo);
+        System.out.println("Ingrese el id del Agente:");
+        int id = sc.nextInt();
+        
+        Agente_Venta Agente = new Agente_Venta(usuario, contraseña, nombre, identificacion, correo, id);
         
      }
     
      
-    
-    private static void opcion3AD(){
-        Scanner sc = new Scanner(System.in);}
-    
-        
+ public static boolean enIntervalo(LocalDate inicio, 
+            LocalDate fin, LocalDate buscar){
+        return buscar.isAfter(inicio) && buscar.isBefore(fin);
     }
-    //public void RegistrarAgente(Agente_Venta Agente, ArrayList<Propiedad> Propiedades){}
+ 
+    private static void opcion3AD(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Reporte contactos y ventas");
+        System.out.println("Ingrese la fecha inicial :" + "(aa-mm-dd");
+        String Fechin = sc.nextLine();
+        LocalDate fechain = LocalDate.parse(Fechin);
+        
+        System.out.println("Ingrese la fecha final :" + "(aa-mm-dd");
+        String Fechfin = sc.nextLine();
+        LocalDate fechafin = LocalDate.parse(Fechfin);
+        
+        for (Agente_Venta Ag: UIUsuarios.getAgentes()){
+            for (Venta v : Ag.getVentasRealizadas()){
+                LocalDate fechabuscar = v.getFechaVenta();
+                if(enIntervalo(fechain, fechafin, fechabuscar)){
+                    System.out.println("Agente  Numero_Ventas  Num_Respuestas" + "\n" + Ag.getId() + Ag.getVentasRealizadas().size() + Ag.getContador());
+                }
+            }
+        }
+        
+        System.out.println("Ingrese el id del agente del que quiere ver mas detalles");
+        int busquedaAgente = sc.nextInt();
+        for (Agente_Venta a: UIUsuarios.getAgentes()){
+            if (a.getId()== busquedaAgente){
+                a.mostrarInformacion();
+            }
+        }
+    }   
+  }
     
-    //public void ReporteGeneral(Fehca_Inicio, Fecha_Fin){}
 

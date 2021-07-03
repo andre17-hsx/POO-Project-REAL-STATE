@@ -16,15 +16,15 @@ public class Casa extends Propiedad {
 
     
     //@Constructor#1 de la Clase Casa
-    public Casa(int numPisos, int habitaciones, double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente) {
-        super(precio,ancho,profundidad,ubicacion,estadoVenta,consultado,agente); //--> Llama al constructor de la Superclase
+    public Casa(int numPisos, int habitaciones, double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente, int id) {
+        super(precio,ancho,profundidad,ubicacion,estadoVenta,consultado,agente, id); //--> Llama al constructor de la Superclase
         this.numPisos = numPisos;
         this.habitaciones = habitaciones;
     }
 
     //@OverLoading del Constructor#1 de Casa
-    public Casa(int numPisos, int habitaciones, double precio, double ancho, double profundidad, String[] ubicacion,Agente_Venta agente){
-        super(precio,ancho, profundidad, ubicacion,agente); //---> Llama al constructor de la SuperClase que solo recibe 5 argumentos
+    public Casa(int numPisos, int habitaciones, double precio, double ancho, double profundidad, String[] ubicacion){
+        super(precio,ancho, profundidad, ubicacion); //---> Llama al constructor de la SuperClase que solo recibe 5 argumentos
         this.numPisos = numPisos;
         this.habitaciones = habitaciones;
     }

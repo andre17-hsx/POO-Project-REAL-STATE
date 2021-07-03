@@ -5,6 +5,8 @@
  */
 package Usuarios;
 
+import Prestamos.CalculadoraPrestamoAleman;
+import Prestamos.CalculadoraPrestamoFrances;
 import Propiedades.Casa;
 import Propiedades.Propiedad;
 import Propiedades.Terreno;
@@ -24,6 +26,11 @@ public class Cliente extends Usuario{
     super(user, password, nombre, cedula, correo, TipoUsuario.Cliente);
     this.ListaConsultas = ListaConsultas;
     }
+    
+    public Cliente(String nombre, String correo, int cedula){
+        super(nombre, correo, cedula);
+    }
+    
     
     public static void MostrarMenuCliente(){
         Scanner  sc = new Scanner(System.in);
@@ -301,10 +308,10 @@ public class Cliente extends Usuario{
         System.out.print("Ingrese Ciudad:"); String ciudad = sc.nextLine();
         System.out.print("Ingrese Direccion:"); String direccion = sc.nextLine();
         System.out.println("Ingrese Sector:"); String sector = sc.nextLine();
-        String[] ubicacion = new String[]{provincia,ciudad,direccion,sector};
+        String[] ubicacion = new String[]{provincia,ciudad,direccion,sector};  
         
         if (tipo.toLowerCase().equals("terreno")){
-            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion,null);
+            Terreno terreno = new Terreno(tipoterreno, precio, ancho, profundidad, ubicacion);
             System.out.println("Ingrese correo electronico"); 
             mail = sc.nextLine();
             alerta = new Notificacion(mail,terreno);
@@ -322,7 +329,7 @@ public class Cliente extends Usuario{
         }*/
         
         }else if(tipo.toLowerCase().equals("casa")){
-            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion,null);
+            Casa casita = new Casa(numpisos, numhabitaciones, precio, ancho, profundidad, ubicacion);
             System.out.println("Ingrese correo electronico"); 
             mail = sc.nextLine();
             alerta = new Notificacion(mail,casita);
@@ -350,7 +357,7 @@ public class Cliente extends Usuario{
          
          
          System.out.println("Ingrese el costo de la propiedad:");
-         int costo = sc.nextInt();
+         double costo = sc.nextInt();
          
          System.out.println("Ingrese su tasa de interes");
          double interes = sc.nextDouble();
@@ -365,14 +372,21 @@ public class Cliente extends Usuario{
          
          double prestamo = 0;
          if (sistema.toLowerCase().equals("frances")){
-             prestamo = (costo)*((interes)/(1-Math.pow((1+interes),((-1)*(cuotas)))));
+             CalculadoraPrestamoFrances p1 = new CalculadoraPrestamoFrances(interes, costo, cuotas);
+             prestamo = p1.calculadoraPrestamo();
+             System.out.println("Su prestamo tendria un valor de :" + prestamo);
+
          }
          else if (sistema.toLowerCase().equals("aleman")){
-             prestamo = (costo)*((interes)/(1-Math.pow((1-interes),((-1)*(cuotas)))));
+             CalculadoraPrestamoAleman p1 = new CalculadoraPrestamoAleman(interes, costo, cuotas);
+             prestamo = p1.calculadoraPrestamo();
+             System.out.println("Su prestamo tendria un valor de :" + prestamo);
          }
    }
     private static void opcion5C(){
         Scanner sc = new Scanner(System.in);}
+
+
     
     
 }

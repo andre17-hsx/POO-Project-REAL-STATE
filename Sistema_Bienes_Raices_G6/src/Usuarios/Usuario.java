@@ -35,6 +35,12 @@ public class Usuario {
         this.user = user;
         this.password = password;
     }
+    
+    public Usuario(String nombre, String correo, int cedula){
+        this.nombre=nombre;
+        this.correo=correo;
+        this.cedula=cedula;
+    }
 
     public String getUser() {
         return user;
