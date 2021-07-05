@@ -149,7 +149,7 @@ public class UIUsuarios {
                 break;
                 
                 case 2:
-                    System.out.print("Igrese su edad:");
+                    System.out.print("Ingrese su edad:");
                         while(!sc.hasNextInt() ){
                             System.out.print("\nIngreso incorrecto... solo cantidad numerica:");
                             sc.nextLine();
@@ -163,13 +163,33 @@ public class UIUsuarios {
                             String nombreCliente = scan.nextLine();
                             System.out.print("Ingrese el Usuario:");String userCliente=scan.nextLine();
                             System.out.print("Ingrese su Password"); String passwordCliente = scan.nextLine();
-                            System.out.print("Ingrese su cedula:");
-                                while(!scan.hasNextInt() ){
-                                    System.out.print("\nIngreso incorrecto... solo cantidad numerica:");
+                            Usuario usuarioCl = new Usuario(userCliente,passwordCliente);
+                            String userCl = usuarioCl.verificarNuevoUsuario(userCliente,UIUsuarios.getListaUsuarios());
+                            //verifica si existe usuario
+                            while(userCl!=null){
+                                System.out.println("Usuario ya existe");
+                                        System.out.print("Ingrese el Usuario: ");
+                                        userCliente = scan.nextLine();
+                                        System.out.print("Ingrese su Contraseña: ");
+                                        passwordCliente = scan.nextLine();
+                                        usuarioCl = new Usuario(userCliente, passwordCliente);
+                                        userCl = usuarioCl.verificarNuevoUsuario(userCliente, UIUsuarios.getListaUsuarios());
+                            }
+                            System.out.print("Ingrese su cedula:"); 
+                            while(!scan.hasNextInt()){
+                                    System.out.println("\nIngreso incorrecto... solo cantidad numerica:");
                                 }
                              int cedulaCliente=scan.nextInt();
+                             
                             System.out.print("Ingrese correo electronico:"); 
                             String correoCliente = scanCorreo.nextLine();
+                            boolean correoCl = usuarioCl.verificarNuevoCorreo(correoCliente, usuarios);
+                            //
+                            while(correoCl==true){
+                                System.out.print("Ingrese correo electronico:"); 
+                                correoCliente = scanCorreo.nextLine();
+                                correoCl = usuarioCl.verificarNuevoCorreo(correoCliente, usuarios);
+                            }
                             Cliente nuevoCLiente = new Cliente(userCliente,passwordCliente,nombreCliente,cedulaCliente,correoCliente,null);
                             System.out.println("\n\nSe Creo correctamente el CLiente...!\n\n\n");
                         }

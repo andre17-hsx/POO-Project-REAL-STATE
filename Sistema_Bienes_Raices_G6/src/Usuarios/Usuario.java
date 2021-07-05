@@ -7,6 +7,8 @@ package Usuarios;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -49,6 +51,9 @@ public class Usuario {
     public String getPassword() {
         return password;
     }
+    public String getCorreo(){
+        return correo;
+    }
 
     public void setUser(String user) {
         this.user = user;
@@ -83,6 +88,48 @@ public class Usuario {
             }
         }
         return null;
+    }
+    
+    public String verificarNuevoUsuario(String usuario, ArrayList<Usuario> usuarios) {
+        if (!usuarios.isEmpty()){
+            for (Usuario usu : usuarios){
+                if (usu.getUser().equals(usuario)) {
+                    return usu.getUser();
+                }
+            }
+        }
+        return null;
+    }
+    public boolean verificarCorreo(String correo){
+        Pattern pattern = Pattern.compile("^[_a-z0-9-\\+]+(\\.[_a-z0-9-]+)*@"
+                        + "[a-z0-9-]+(\\.[a-z0-9]+)*(\\.[a-z]{2,})$");
+        Matcher match = pattern.matcher(correo);
+        if(match.find()){
+            boolean validar = correo.substring(correo.indexOf("@")).equals("@gmail.com") || correo.substring(correo.indexOf("@")).equals("@hotmail.com");
+            return validar;
+        }
+        return false;
+    }
+   
+    public boolean verificarNuevoCorreo(String correo, ArrayList<Usuario> usuarios){
+        
+        if(verificarCorreo(correo)==false){
+            System.out.println("Correo invalido");
+            return false;
+        }else{
+            return true;
+        }
+        
+        /*if (!usuarios.isEmpty()){
+            for (Usuario usu : usuarios){
+                if (usu.getCorreo().equals(correo)) {
+                    return true;
+                }else{
+                    System.out.println("Correo ya esta registrado");
+                }
+            }
+        }*/
+        
     }
     
     @Override
