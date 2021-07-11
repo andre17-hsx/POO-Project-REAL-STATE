@@ -5,6 +5,7 @@
  */
 package Propiedades;
 import Usuarios.*;
+import java.util.Objects;
 /**
  *
  * @author jeras
@@ -40,8 +41,28 @@ public class Terreno extends Propiedad {
     public void setTipo(TipoTerreno tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.tipo);
+        return hash;
+    }
+
+
+    public boolean equals(Object obj){
+        if(obj!=null){
+            if(obj instanceof Terreno){
+                Terreno otro = (Terreno)obj;
+                if((super.getPrecio()==otro.getPrecio()) && (super.getAncho()==otro.getAncho())&&(super.getProfundidad()==otro.getProfundidad())&&
+                        super.validarUbicacion(otro)&&(tipo==otro.getTipo())){
+                    System.out.println("CUMPLIO CON TODO");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     
-       
-    
-    
+   
 }

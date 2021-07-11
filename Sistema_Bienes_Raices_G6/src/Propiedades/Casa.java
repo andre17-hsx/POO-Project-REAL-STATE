@@ -58,9 +58,30 @@ public class Casa extends Propiedad {
     public void setHabitaciones(int habitaciones) {
         this.habitaciones = habitaciones;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + this.numPisos;
+        hash = 41 * hash + this.habitaciones;
+        return hash;
+    }
     
     
-    
+public boolean equals(Object obj){
+        if(obj!=null){
+            if(obj instanceof Casa){
+                Casa otro = (Casa)obj;
+                if((super.getPrecio()==otro.getPrecio()) && (super.getAncho()==otro.getAncho())&&(super.getProfundidad()==otro.getProfundidad())&&
+                        super.validarUbicacion(otro)&&(numPisos== otro.getNumPisos())&&(habitaciones==otro.getHabitaciones())){
+                    System.out.println("CUMPLIO CON TODO");
+                    return true;
+                }
+            }
+        }
+        System.out.println("AL MENOS ALGO NO CUMPLIO");
+        return false;
+    }
     
 
 }

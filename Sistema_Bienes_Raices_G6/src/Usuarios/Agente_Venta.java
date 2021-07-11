@@ -6,6 +6,7 @@
 package Usuarios;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import sistema_bienes_raices_g6.UIUsuarios;
 import sistema_bienes_raices_g6.Venta;
@@ -19,14 +20,11 @@ public class Agente_Venta extends Usuario {
     private static ArrayList<Venta> VentasRealizadas;
     //private ArrayList<Consultas> ListaConsultas;
     private static int contador;
-    private String nombre;
-    private int cedula;
-    private String correo;
     private int id;
     
      public Agente_Venta(String user, String password, String nombre, int cedula, String correo, int id) {
         super(user, password, nombre, cedula, correo/*, TipoUsuario.Agente_Venta*/);
-        VentasRealizadas = new ArrayList<>();
+        VentasRealizadas = new ArrayList<Venta>();
         contador= 0;
         this.id = id;
     }
@@ -35,9 +33,9 @@ public class Agente_Venta extends Usuario {
     public static void MostrarMenuAgente(){
         Scanner  sc = new Scanner(System.in);
         String opcion;
-        System.out.println("\t\tBienvenido :)");
-        System.out.println("\nOPCIONES DE AGENTE DE VENTAS\n");
         do{
+            System.out.println("\t\tBienvenido :)");
+            System.out.println("\nOPCIONES DE AGENTE DE VENTAS\n");
             System.out.println("1. Revisar Buzon");
             System.out.println("2. Registrar Venta");
             System.out.println("3. Cerrar sesion");
@@ -64,7 +62,7 @@ public class Agente_Venta extends Usuario {
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcion Buzon de Consultas");
         //Muestro por pantalla todas las consultas
-        for (Consulta c: UIUsuarios.getConsultas()){
+        for (Consulta c: UIUsuarios.getListaConsultas()){
             System.out.println("Fecha_Inicio  Codigo_Propiedad  Nombre_Agente  Pregunta  Estado" + "\n" +
                                 c.getFechaconsulta() + "  " + c.getCodigo()+ "  " + c.getAgente() + "  " + c.getPregunta()+ "  " + c.isIsRespondida());
         }
@@ -78,9 +76,9 @@ public class Agente_Venta extends Usuario {
         
         //Le pregunto al agente si quiere responder alguna consulta
         int codigo = sc.nextInt();
-        for (Consulta c: UIUsuarios.getConsultas()){
+        for (Consulta c: UIUsuarios.getListaConsultas()){
             if(c.getCodigo()== codigo){
-                for(Conversacion con:c.getConversa()){
+                for(Conversacion con:c.getConversaciones()){
                     System.out.println(con);
                 }
                 System.out.println("Desea agregar una respuesta o regresar (si/no)");
@@ -90,7 +88,7 @@ public class Agente_Venta extends Usuario {
                     String pregunta = sc.nextLine();
                     LocalDate fechapreg = LocalDate.now();
                     Conversacion nuevo_mss  = new Conversacion(fechapreg, pregunta);
-                    c.getConversa().add(nuevo_mss);
+                    c.getConversaciones().add(nuevo_mss);
                     contador+=1;
                 }
             }
@@ -106,7 +104,7 @@ public class Agente_Venta extends Usuario {
         String nombrec = sc.nextLine();
         System.out.print("Ingrese el correo del cliente");
         String correoc= sc.nextLine();
-        System.out.println("Ingrese los datos la cedula del cliente");
+        System.out.print("Ingrese los datos la cedula del cliente: ");
         while(!sc.hasNextInt()){
                 sc.nextLine();
                 System.out.println("Cedula Identidad Incorrecta");
@@ -120,7 +118,7 @@ public class Agente_Venta extends Usuario {
         Cliente cv = new Cliente(nombrec, correoc, cedulac);
         LocalDate fechav = LocalDate.now();
         Venta v = new Venta(fechav, cv);
-        
+   
         VentasRealizadas.add(v);
         
     
@@ -130,36 +128,8 @@ public class Agente_Venta extends Usuario {
         return id;
     }
 
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getCedula() {
-        return cedula;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
     public static void setVentasRealizadas(ArrayList<Venta> VentasRealizadas) {
         Agente_Venta.VentasRealizadas = VentasRealizadas;
-    }
-
-    @Override
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    @Override
-    public void setCedula(int cedula) {
-        this.cedula = cedula;
-    }
-
-    @Override
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public ArrayList<Venta> getVentasRealizadas() {
@@ -171,11 +141,26 @@ public class Agente_Venta extends Usuario {
     }
     
     public void mostrarInformacion(){
-        System.out.println("Ventas:" + "\n" + VentasRealizadas.size() + "\n"+ "Consultas" + "\n"+ contador);
+        System.out.print("\nVentas:"+ VentasRealizadas.size()+"\nConsultas:"+calcularNumeroConsultas()+
+                "\nNombre: "+super.getNombre()+"\nUsuario: "+super.getUser());
+    }
+    
+    public int calcularNumeroConsultas(){
+       
+        for(Consulta c: UIUsuarios.getListaConsultas()){
+            if(c!=null){
+                if(c.getAgente().getId()==id){
+                contador +=1;
+                return contador;
+                }
+            }
+        }
+        return contador;
     }
     
     
-    
+    public int calcularVentasRealizadas(){
+        return VentasRealizadas.size();
+    }
 }
-
 

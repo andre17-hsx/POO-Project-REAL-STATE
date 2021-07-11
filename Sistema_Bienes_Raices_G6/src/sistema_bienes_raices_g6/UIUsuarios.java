@@ -51,8 +51,8 @@ public class UIUsuarios {
         notificaciones = new ArrayList<Notificacion>();
              
         //Registro de Agentes iniciales;
-        Usuario ag1= new Agente_Venta("Jose_17", "Abc17000", "Jose Parrales", 0706404512, "josep@gmail.com", 1);
-        Usuario ag2= new Agente_Venta("Pedrin_07", "Xyz17000", "Pedro Santana", 0704541212, "pedri17@gmail.com", 2);
+        Usuario ag1= new Agente_Venta("jose_17", "12345", "Jose Parrales", 0706404512, "josep@gmail.com", 1);
+        Usuario ag2= new Agente_Venta("Pedrin_07", "xyz17000", "Pedro Santana", 0704541212, "pedri17@gmail.com", 2);
         Usuario ag3= new Agente_Venta("Alisson_L", "Hjk17000", "Alisson Herrera", 0703504512, "aliss@gmail.com", 3);
    
         //Registro Clinetes iniciales;
@@ -73,7 +73,7 @@ public class UIUsuarios {
         //Registro Propiedades iniciales 2 Terreno, 2 Casas;
         String[] ubicacion1 = new String[]{"Guayas","Guayaquil","Calle A y la 7ma","SurOeste"};
         String[] ubicacion2 = new String[]{"Pichincha","Quito","Av.de los Shyris","Sur"};
-        String[] ubicacion3 = new String[]{"Guayas","Guayauil","7ma etapa","Alborada"};
+        String[] ubicacion3 = new String[]{"Guayas","Guayaquil","7ma etapa","Alborada"};
         String[] ubicacion4 = new String[]{"Guayas","Guayaquil","5ta etapa","Alborada"};
         Propiedad terreno1 = new Terreno(TipoTerreno.VIVIENDA,5000.0,20.0,20.0,ubicacion1,(Agente_Venta)ag1,1);
         Propiedad terreno2 = new Terreno(TipoTerreno.COMERCIAL,50000,20,50,ubicacion2,(Agente_Venta)ag2,2);
@@ -94,9 +94,13 @@ public class UIUsuarios {
         Scanner scan = new Scanner(System.in);
         Scanner scanCorreo = new Scanner(System.in);
         Scanner scanLogging = new Scanner(System.in);
+        Scanner scexit = new Scanner(System.in);
+        int opSubmenu;
         //Usuario user, userSystem;
         int menu=0;
         
+        
+        //BUCLE DEL MENU PRINCIPAL
         do{
             System.out.println("\tBIENVENIDOS AL SISTEMA DE BIENES RAICES\n");
             System.out.print("MENU INICIAL\n1)Iniciar Sesión\n2)Registrarse\n3)SALIR\n\nIngrese opcion:");  
@@ -109,7 +113,8 @@ public class UIUsuarios {
                 sc.nextLine();}
                 menu = sc.nextInt();
             }while(!validarIngresoMenu(menu));
-        
+            
+            //INICIO DEL SWITH DEL MENU PRINCIPAL
             switch (menu){
             
             //Usuario inicia el Logging, donde el Sistema valida que tipo de usuario es
@@ -135,14 +140,16 @@ public class UIUsuarios {
                     
                     
                     if(userSystem instanceof Administrador){
-                        System.out.println("Eres un Admin... ;p");
-                        Administrador.mostrarMenuAdministrador();
+                            System.out.println("Eres un Admin... ;p");
+                            Administrador.mostrarMenuAdministrador();
+                        
                     }else if(userSystem instanceof Cliente){
-                        System.out.println("Eres un CLiente");
-                        Cliente.MostrarMenuCliente();
+                            System.out.println("Eres un CLiente");
+                            Cliente.MostrarMenuCliente();
+                        
                     }else if(userSystem instanceof Agente_Venta){
-                        System.out.println("Eres un Agente");
-                        Agente_Venta.MostrarMenuAgente();
+                            System.out.println("Eres un Agente");
+                            Agente_Venta.MostrarMenuAgente();
                     }
                     
                     
@@ -176,12 +183,14 @@ public class UIUsuarios {
                         
                break;
                
-                case 3 :
+               case 3 :
                     System.out.println("ADIOS...:D!");
-                    break;
+               break;
                                 
-            }  
+            }//--->FIN DEL SWITCH DEL MENU PRINCIPAL
+            
         }while(menu!=3);
+        //FIN DEL BUCLE DEL MENU PRINCIPAL
        
         sc.close();
         scan.close();
@@ -210,6 +219,7 @@ public class UIUsuarios {
         return consultas;
     }
     
+    
     public static ArrayList<Notificacion> getListaNotificaciones(){
         return notificaciones;
     }
@@ -221,6 +231,7 @@ public class UIUsuarios {
          }
         return false;
     }
+    
     
     public void filtrarPropiedades(String filtro){
         

@@ -7,6 +7,7 @@ package Propiedades;
 import Usuarios.*;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Objects;
 /**
  *
  * @author jeras
@@ -140,9 +141,9 @@ private Agente_Venta agente;
         System.out.println("- ID \t\t\t:"+id);
         System.out.println("- Metros 2 \t\t:"+ancho);
         System.out.println("- Profundidad \t\t:"+profundidad);
-        System.out.println("- Ubicacion \t\t:"+ubicacion);
+        System.out.println("- Ubicacion \t\t:"+ubicacion[0]+"-"+ubicacion[1]+"-"+ubicacion[2]+"-"+ubicacion[3]);
         System.out.println("- Precio $ \t\t:"+precio);
-        System.out.println("-Agente asignado\t\t:"+agente.getUser());
+        System.out.println("-Agente asignado\t:"+agente.getUser());
         
         if(estadoVenta){ System.out.println("- Estado de Venta \t: SI");
         }else{ System.out.println("- Estado de Venta \t: NO");}
@@ -153,4 +154,31 @@ private Agente_Venta agente;
     }
     
     
+    public boolean validarUbicacion(Object obj){
+        if(obj!=null){
+            if(obj instanceof Propiedad){
+                Propiedad otro=(Propiedad)obj;
+                if((ubicacion[0]==otro.ubicacion[0])&&(ubicacion[1]==otro.ubicacion[1])&&
+                        (ubicacion[3]==otro.ubicacion[3])){
+                    System.out.println("CUMPLIO CON TODOS LOS LUGARES");
+                    return true;
+                }
+            }
+        }
+        System.out.println("NO CUMPLIO CON ALGUN O NINGUN LUGAR");
+        return false;
+    }
+    
+    public String getProvincia(){
+        return ubicacion[0];
+    }
+    
+    public String getCiudad(){
+        return ubicacion[1];
+    }
+    
+    public String getSector(){
+        return ubicacion[3];
+    }
+   
 }

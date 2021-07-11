@@ -7,6 +7,7 @@ package sistema_bienes_raices_g6;
 
 import java.util.ArrayList;
 import Propiedades.*;
+import java.util.Objects;
 
 
 import java.util.Properties;
@@ -25,22 +26,31 @@ public class Notificacion {
     private String email;
     private Propiedad propiedadPreferencia;
     
-    
-     public Notificacion(String email,Propiedad propiedadPreferencia){
+    //Contructor#1 para instanciar una Notificacion, solo recibe un correo
+    //y una Propiedad con las preferencias que ingreso en tiempo de compilacion
+    public Notificacion(String email,Propiedad propiedadPreferencia){
         this.email = email;
         this.propiedadPreferencia = propiedadPreferencia;
-     }
-     
-    public boolean registrarNotificacion(Notificacion noti) {
-        for (Notificacion i : UIUsuarios.getListaNotificaciones()) {
-            if (!i.equals(noti)) {
-                UIUsuarios.getListaNotificaciones().add(noti);
-                return true;
-            }
-        }
-        return false;
     }
     
+    
+    //Metodo que registra una preferencia, siempre y cuando no este repetida
+    /*public boolean registrarNotificacion(Notificacion noti) {
+        for (Notificacion i : UIUsuarios.getListaNotificaciones()) {
+            if(i!=null){
+                if (!i.equals(noti)) {
+                    System.out.println("se creo la alerta con exito");
+                    UIUsuarios.getListaNotificaciones().add(noti);
+                    return true;
+                }
+            }
+            
+        }
+        System.out.println("Ya existe una notificacion, no se creo la alerta");
+        return false;
+    }*/
+    
+    //GETTERS
     public String getEmail(){
         return email;
     }
@@ -50,6 +60,7 @@ public class Notificacion {
     }
     
     
+    //Metodo que envía correo mediante STMP de gmail
     public static void enviarCorreo(String correo, Propiedad propiedad) {
         
         //Inicializamos nuestras credenciales de remitente
@@ -76,13 +87,21 @@ public class Notificacion {
         try{
             mensaje.addRecipient(Message.RecipientType.TO,new InternetAddress(destino));
             mensaje.setSubject(asunto);
-            mensaje.setText("Precio:"+propiedad.getPrecio()+", Tamanio[M2]:"+propiedad.getTamanio()+
-                    ", Ubicacion: "+propiedad.getUbicacion()+", ID: "+propiedad.getId());
+            if(propiedad instanceof Terreno){
+            Terreno terrCorreo = (Terreno)propiedad;
+            mensaje.setText("Precio:"+terrCorreo.getPrecio()+", Tipo: "+terrCorreo.getTipo()+"Tamanio[M2]:"+terrCorreo.getTamanio()+
+                    ", Ubicacion: "+terrCorreo.getProvincia()+"-"+terrCorreo.getCiudad()+"-"+terrCorreo.getSector()+ ", ID: "+terrCorreo.getId());
+            }else if(propiedad instanceof Casa){
+             Casa casaCorreo=(Casa)propiedad;
+             mensaje.setText("Precio:"+casaCorreo.getPrecio()+", Pisos: "+casaCorreo.getNumPisos()+", Habitaciones: "+casaCorreo.getHabitaciones()+"Tamanio[M2]:"+casaCorreo.getTamanio()+
+                    ", Ubicacion: "+casaCorreo.getProvincia()+"-"+casaCorreo.getCiudad()+"-"+casaCorreo.getSector()+ ", ID: "+casaCorreo.getId());
+        
+            }
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com",remitente,clave);
             transport.sendMessage(mensaje,mensaje.getAllRecipients());
             transport.close();
-            System.out.println("Correo Enviado");
+            System.out.println("\n*** Correo Enviado ****");
         }catch(Exception e){
             e.printStackTrace(); 
         }

@@ -11,9 +11,9 @@ import java.lang.Math;
  * @author ALICE
  */
 public abstract class CalculadoraPrestamo{
-    protected double tasaInteres;
-    protected int num_cuotas;
-    protected double costoPropiedad;
+    /*protected double tasaInteres;
+    protected double num_cuotas;
+    protected double costoPropiedad;*/
     
     
     public abstract double calculadoraPrestamo();

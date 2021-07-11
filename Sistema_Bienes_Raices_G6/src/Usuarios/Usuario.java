@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * @author andya
  */
 public class Usuario {
-    protected String user;
-    protected String password;
-    protected String nombre;
-    protected int cedula;
-    protected String correo;
+    private String user;
+    private String password;
+    private String nombre;
+    private int cedula;
+    private String correo;
     //protected TipoUsuario Tipo;
     private LocalDate FechaInicio;
     
@@ -45,9 +45,21 @@ public class Usuario {
     public String getUser() {
         return user;
     }
+    
+    public String getNombre(){
+        return nombre;
+    }
 
     public String getPassword() {
         return password;
+    }
+    
+    public int getCedula(){
+        return cedula;
+    }
+    
+    public String getCorreo(){
+        return correo;
     }
 
     public void setUser(String user) {
@@ -91,12 +103,10 @@ public class Usuario {
             if (obj instanceof Usuario){
                 Usuario u = (Usuario)obj;
                 if (user.equals(u.getUser()) && password.equals(u.getPassword())){
-                    System.out.println("Es un usuario..");
                     return true;
                 }
             }
         }
-        System.out.println("No lo es");
         return false;
     }
 

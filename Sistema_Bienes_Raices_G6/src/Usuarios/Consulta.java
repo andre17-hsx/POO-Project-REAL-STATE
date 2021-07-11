@@ -18,7 +18,7 @@ public class Consulta {
     private Agente_Venta agente;
     private boolean isRespondida;
     private String pregunta;
-    private ArrayList<Conversacion> conversa;
+    private ArrayList<Conversacion> conversaciones;
     
     public Consulta(LocalDate fechaconsulta, int codigo,Agente_Venta agente, String pregunta, boolean isRespondido) {
         this.pregunta=pregunta;
@@ -42,8 +42,8 @@ public class Consulta {
         return agente;
     }
 
-    public ArrayList<Conversacion> getConversa() {
-        return conversa;
+    public ArrayList<Conversacion> getConversaciones() {
+        return conversaciones;
     }
 
     public boolean isIsRespondida() {
