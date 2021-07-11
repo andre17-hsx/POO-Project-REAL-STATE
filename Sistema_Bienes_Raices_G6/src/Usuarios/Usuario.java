@@ -113,6 +113,7 @@ public class Usuario {
     //@Override
     public int hashCode() {
         int hash = 7;
+        
         hash = 29 * hash + Objects.hashCode(this.user);
         hash = 29 * hash + Objects.hashCode(this.password);
         hash = 29 * hash + Objects.hashCode(this.nombre);
