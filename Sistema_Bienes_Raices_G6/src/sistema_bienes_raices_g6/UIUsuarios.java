@@ -5,6 +5,9 @@
  */
 package sistema_bienes_raices_g6;
 
+/**
+ * @see
+ */
 import Propiedades.*;
 import Usuarios.*;
 import java.time.LocalDate;
@@ -15,34 +18,16 @@ import java.util.Scanner;
  *
  * @author andya
  */
+//CLASE QUE CONTIENE LAS VARIABLES ESTATICAS, donde se va a inicializar el Sistema, y de antemano generan
+//algunas Propiedades y Usuarios, las inicializa y las guarda en las lista.
 public class UIUsuarios {
     public static Scanner sc;
-    private static ArrayList<Usuario> usuarios;
-    private static ArrayList<Propiedad> propiedades;
+    private static ArrayList<Usuario> usuarios; //--> Solo necesitamos arreglo Usuario, porque aplicaremos polimorfismo
+    private static ArrayList<Propiedad> propiedades; //--> Solo necesitamos arreglo Propiedades, porque aplicaremos polimorfismo
     private static ArrayList<Consulta> consultas;
     private static ArrayList<Notificacion> notificaciones;
     
 
-    public static Iterable<Agente_Venta> getAgentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public static Iterable<Usuario> getUsuarios() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static Iterable<Propiedad> getpropiedades() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public static Iterable<Consulta> getConsultas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static Iterable<Consulta> getConversacion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
     public UIUsuarios(){ 
         usuarios = new ArrayList<Usuario>();
@@ -119,7 +104,7 @@ public class UIUsuarios {
             
             //Usuario inicia el Logging, donde el Sistema valida que tipo de usuario es
             //y dependiendo de esto muestra los menus correspondientes
-                case 1:
+                case 1: //--> Si ingresa tiene que logearse primero
                     System.out.println("Ingrese sus Datos");
                     System.out.print("Usuario: ");
                     String usuario = scanLogging.nextLine();
@@ -138,7 +123,7 @@ public class UIUsuarios {
                         userSystem = user.verificarUsuario(user, UIUsuarios.getListaUsuarios());
                     }
                     
-                    
+                    //Luego que se ha logeado ingresa deacuerdo a su usuario
                     if(userSystem instanceof Administrador){
                             System.out.println("Eres un Admin... ;p");
                             Administrador.mostrarMenuAdministrador();
@@ -155,7 +140,7 @@ public class UIUsuarios {
                     
                 break;
                 
-                case 2:
+                case 2: //--> Ingresa para crear un nuevo Usuario
                     System.out.print("Igrese su edad:");
                         while(!sc.hasNextInt() ){
                             System.out.print("\nIngreso incorrecto... solo cantidad numerica:");
@@ -163,7 +148,7 @@ public class UIUsuarios {
                         }
                         int edad = sc.nextInt();
                         
-                        if(edad<18){
+                        if(edad<18){ //--> validacion que no permite ingreso a menores de 18 anios
                             System.out.println("\n\nEres menor de edad :'( no puedes registrarte AUN...!\n\n");
                         }else{
                             System.out.print("Ingrese su Nombre:");
@@ -200,13 +185,14 @@ public class UIUsuarios {
     
     
     
-    
+    //--Validacion que solo permite seleccionar Opcion 1/2/3
     public static boolean validarIngresoMenu(int menu){
             if (menu==1 || menu==2 || menu ==3){
                 return true;
             }else{System.out.print("\nIngreso una opcion INCORRECTA, ingrese nuevamente opcion: ");return false;}
     }
     
+    //@returns de las listas de Arreglos
     public static ArrayList<Usuario> getListaUsuarios(){
         return usuarios;
     }
@@ -219,11 +205,16 @@ public class UIUsuarios {
         return consultas;
     }
     
-    
+
     public static ArrayList<Notificacion> getListaNotificaciones(){
         return notificaciones;
     }
     
+    
+    /**Metodo que verifica si un usuario es un Agente
+     * @param indice
+     * @return verdadero si es un agente falso si no
+     */
     public static boolean verificarSiesAgente(int indice){
         Usuario userPrueba = usuarios.get(indice);
         if(userPrueba instanceof Agente_Venta){
@@ -232,9 +223,5 @@ public class UIUsuarios {
         return false;
     }
     
-    
-    public void filtrarPropiedades(String filtro){
-        
-    }
     
 }

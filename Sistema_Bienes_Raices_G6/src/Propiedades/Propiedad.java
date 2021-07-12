@@ -1,19 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+//@see
 package Propiedades;
 import Usuarios.*;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Objects;
 /**
- *
+ 
  * @author jeras
  */
-public class Propiedad {
 
+/*=================================================================================================|
+CLASE Padre Propiedad                                                                              |
+Incluye las particularidades base de toda propiedad, el estado de venta y consulta de la propiedad,|
+y muestra los detalles de esta.                                                                    |
+===================================================================================================*/
+public class Propiedad {
+//@param
 private double precio;
 private double ancho;
 private double profundidad;
@@ -25,7 +28,18 @@ private Agente_Venta agente;
     
 
 
-    //Constructor#1 de la Clase Propiedad
+    //Constructor
+    /**
+     * Constructor con 8 parametros
+     * @param precio precio de la propiedad
+     * @param ancho ancho de la propiedad
+     * @param profundidad profundidad de la propiedad
+     * @param ubicacion ubicacion de la propiedad
+     * @param id id de la propiedad
+     * @param estadoVenta estado de venta de la propiedad
+     * @param consultado si esta consultado true, false si no
+     * @param agente agente a quien fue signado
+     */
     public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente, int id) {
         this.precio = precio;
         this.ancho = ancho;
@@ -38,103 +52,148 @@ private Agente_Venta agente;
     }
     
     
-    //@OverLoading de Constructor#1 Para instanciar una propiedad con los valores iniciales minimos
-   //para crear, donde estadoVenta y consultado inician con FALSE.
+    //@OverLoading
+    /**Constructor de 6 parametros
+     * @param precio
+     * @param ancho
+     * @param profundidad
+     * @param ubicacion
+     * @param agente
+     * @param id 
+     */
     public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion, Agente_Venta agente, int id){
             this(precio, ancho, profundidad, ubicacion,false,false,agente, id);
     }
     
-      public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion){
+    /**Constructor de 4 parametros
+     * @param precio
+     * @param ancho
+     * @param profundidad
+     * @param ubicacion 
+     */
+    public Propiedad(double precio, double ancho, double profundidad, String[] ubicacion){
         this.precio = precio;
         this.ancho = ancho;
         this.profundidad = profundidad;
         this.ubicacion = ubicacion;
     }
 
-    /*//@OverLoading, creamos un constructor sin argumentos donde colocamos valores iniciales´por defecto  
-    public Propiedad(){
-        this.precio = 0.00;
-        this.ancho = 1;
-        this.profundidad = 1;
-        this.ubicacion = new String[]{"GUAYAQUIL","GUAYAS","LA CHALA","SUR-OESTE"};
-        this.estadoVenta = false;
-        this.consultado = false;
-    }
-   */ 
- 
-
-    //@Getters
-    
+     /**getPrecio()
+      * @return precio de la propiedad
+      */
     public double getPrecio() {
         return precio;
     }
-
+    
+    /**getAncho()
+     * @return ancho de la propiedad
+     */
     public double getAncho() {
         return ancho;
     }
 
+    /**getProfundidad()
+     * @return profundidad de la propiedad
+     */
     public double getProfundidad() {
         return profundidad;
     }
     
-    //retorna el valor en Metros cuadrados
+    
+    /**getTamanio()
+     * @return retorna los metros cuadrados de la propiedad
+     */
     public double getTamanio(){
         return ancho*profundidad;
     }
+    
+    /**getUbicacion()
+     * @return retorna la direccion de memoria de ubicacion
+     */
     public String[] getUbicacion() {
         return ubicacion;
     }
-
+    
+    /**getId()
+     * @return retorna la Id de la propiedad 
+     */
     public int getId() {
         return id;
     }
-
+    
+    /**isEstadoVenta()
+     * @return retorna el estado de venta de la propiedad
+     */
     public boolean isEstadoVenta() {
         return estadoVenta;
     }
-
+    
+    /**isConsultado
+     * @return retorna si ya fue consultado o no
+     */
     public boolean isConsultado() {
         return consultado;
     }
-
+    
+    /**getAgente()
+     * @return retona al agente que fue asignado
+     */
     public Agente_Venta getAgente() {
         return agente;
     }
 
     
-    //@Setters
-    
+    /**setPrecio(double precio)
+     * @param precio setea el precio de la propiedad
+     */
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
+    
+    /**setAncho(double ancho)
+     * @param ancho setea el ancho de la propiedad
+     */
     public void setAncho(double ancho) {
         this.ancho = ancho;
     }
-
+    
+    /**setProfundidad(double profundidad)
+     * @param profundidad sete la profundidad de la propiedad
+     */
     public void setProfundidad(double profundidad) {
         this.profundidad = profundidad;
     }
-
+    
+    /**setUbicacion(String[] ubicacion)
+     * @param ubicacion setea la direccion de memoria de ubicacion
+     */
     public void setUbicacion(String[] ubicacion) {
         this.ubicacion = ubicacion;
     }
-
+    
+    /**setId(Int id)
+     * @param id setea la id de la propiedad
+     */
     public void setId(int id) {
         this.id = id;
     }
-
+    
+    /**setEstadoVenta
+     * @param estadoVenta setea el estado de venta de la Propiedad 
+     */
     public void setEstadoVenta(boolean estadoVenta) {
         this.estadoVenta = estadoVenta;
     }
-
+    
+    /**setConsultado(boolean consultado)
+     * @param consultado setea el valor de consultado de la propiedad
+     */
     public void setConsultado(boolean consultado) {
         this.consultado = consultado;
     }
  
-    
-    //@Metodos de clase Propiedad
-    
+
+    //Este metodo muestra la informacion detallada de la Propiedad
     public void mostrarInformacion(){
 
         System.out.print("\n====== DETALLES DE PROPIEDAD ======\n");
@@ -154,12 +213,19 @@ private Agente_Venta agente;
     }
     
     
+    /**Este metodo valida SOLAMENTE la ubicacion de la propiedad(PROVINCIA,CIUDAD,SECTOR)
+     * validarUbicacion(Object obj)
+     * @param obj
+     * @return verdadero o falso segun las treas condiciones de Provincia,Ciudad,Sector sean verdaderas
+     */
     public boolean validarUbicacion(Object obj){
         if(obj!=null){
             if(obj instanceof Propiedad){
                 Propiedad otro=(Propiedad)obj;
-                if((ubicacion[0]==otro.ubicacion[0])&&(ubicacion[1]==otro.ubicacion[1])&&
-                        (ubicacion[3]==otro.ubicacion[3])){
+                 if((ubicacion[0].toString().toLowerCase().equals(otro.getProvincia().toLowerCase()))&&
+                         (ubicacion[1].toString().toLowerCase().equals(otro.getCiudad().toLowerCase()))&&
+                         (ubicacion[3].toString().toLowerCase().equals(otro.getSector().toLowerCase()))){
+                    
                     System.out.println("CUMPLIO CON TODOS LOS LUGARES");
                     return true;
                 }
@@ -169,14 +235,25 @@ private Agente_Venta agente;
         return false;
     }
     
+    
+    
+    /**getProvincia()
+     * @return la provincia de la Ubicacion
+     */
     public String getProvincia(){
         return ubicacion[0];
     }
     
+    /**getCiudad()
+     * @return la ciudad de la Ubicacion
+     */
     public String getCiudad(){
         return ubicacion[1];
     }
     
+    /**getSector()
+     * @return el sector de la Ubicacion
+     */
     public String getSector(){
         return ubicacion[3];
     }

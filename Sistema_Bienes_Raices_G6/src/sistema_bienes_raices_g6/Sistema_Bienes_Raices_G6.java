@@ -1,8 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
+//@see
 package sistema_bienes_raices_g6;
 import Propiedades.* ;
 import java.util.Properties;
@@ -14,15 +12,11 @@ import java.util.Properties;
  */
 public class Sistema_Bienes_Raices_G6 {
 
-    /**
-     * @param args the command line arguments
-     */
+    //Main del SISITEMA PRINCIPAL
     public static void main(String[] args) {
         UIUsuarios sistema = new UIUsuarios();
         sistema.iniciarSistema();
-        
 
-        
         
     }
     

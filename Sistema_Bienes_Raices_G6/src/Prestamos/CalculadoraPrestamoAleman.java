@@ -1,34 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Prestamos;
 
 /**
  *
  * @author Gene
  */
+
+/*=================================================================================================|
+SubCLASE CalculadoraPrestamoAleman                                                                 |
+Calcula las cuotas mensuales del préstamo de tipo alemán.                                          |
+====================================================================================================*/
 public class CalculadoraPrestamoAleman extends CalculadoraPrestamo{
         private double tasaInteres;
         private double costoPropiedad;
         private int num_cuotas;
     
+     /**Constructor con 3 parametros
+     * @param tasaInteres
+     * @param costoPropiedad
+     * @param num_cuotas 
+     */
     public CalculadoraPrestamoAleman(double tasaInteres, double costoPropiedad, int num_cuotas){
+        //@param
         this.tasaInteres= tasaInteres;
         this.costoPropiedad= costoPropiedad;
         this.num_cuotas=num_cuotas;
     }
- 
+    
+    //Metrodo Abstacto Sobrescrito
+    /**
+     *calculadoraPrestamo()
+     * @return valorapgar de la simulacion
+     */
     @Override
+    
     public double calculadoraPrestamo() {
+        //Datos a Utilizados para realizar calculos
         double tasaParcial = (1-tasaInteres/100);
         double interesAnio = costoPropiedad*(tasaInteres/100);
         double anulidad;
         double amortizacion;  //interesAnio(IK);
         double capitalVivo = costoPropiedad;
-        
-        
         double capitalAmortizado = costoPropiedad;
         double capitalPendiente = costoPropiedad;//(Mk)
 

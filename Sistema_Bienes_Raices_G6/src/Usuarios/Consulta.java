@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Usuarios;
 
+//@see java.util y java.util
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -12,7 +9,19 @@ import java.util.ArrayList;
  *
  * @author ALICE
  */
+/*==========================================================================================|
+Clase Consulta                                                                              |
+Incluye las variables y métodos necesarios para iniciar y responder la consulta del cliente |
+============================================================================================*/
 public class Consulta {
+    /**
+     * @param fechaConsulta contiene la fecha que se creo la consulta
+     * @param codigo contiene el id de la consulta
+     * @param agente contiene el nombre del agente que se encarga de responder
+     * @param isRespondida contiene true si ya fue respondida o false si no
+     * @param pregunta contiene el mensaje que contiene la consulta
+     * @param conversaciones contiene todas los mensajes que se han realizado
+     */
     private LocalDate fechaconsulta;
     private int codigo;
     private Agente_Venta agente;
@@ -20,6 +29,7 @@ public class Consulta {
     private String pregunta;
     private ArrayList<Conversacion> conversaciones;
     
+    //@CONSTRUCTOR
     public Consulta(LocalDate fechaconsulta, int codigo,Agente_Venta agente, String pregunta, boolean isRespondido) {
         this.pregunta=pregunta;
         this.fechaconsulta=fechaconsulta;
@@ -27,9 +37,10 @@ public class Consulta {
         this.isRespondida=isRespondida;
         this.codigo=codigo;
         ArrayList<Conversacion> conversa = new ArrayList<>();
-//To change body of generated methods, choose Tools | Templates.
+    
     }
-
+    
+    //@GETTERS
     public LocalDate getFechaconsulta() {
         return fechaconsulta;
     }
@@ -53,7 +64,9 @@ public class Consulta {
     public String getPregunta() {
         return pregunta;
     }
-
+    
+    
+    //@SETTERS
     public void setFechaconsulta(LocalDate fechaconsulta) {
         this.fechaconsulta = fechaconsulta;
     }

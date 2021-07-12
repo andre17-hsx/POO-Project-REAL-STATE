@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//@see Importacion de librerias adicionales
 package Usuarios;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,13 +11,23 @@ import sistema_bienes_raices_g6.Venta;
  *
  * @author andya
  */
+
+/*================================================================================================|
+SubCLASE Agente_Venta                                                                             |
+Clase hereda de usuario, que a su vez contiene una lista de Ventas, y un contador que guarda el   |
+numero de consultas que ha respondido                                                             |
+==================================================================================================*/
 public class Agente_Venta extends Usuario {
-    //private ArrayList<Propiedad> ListaPropiedades;
+     /**
+     * @param VentasRealizadas contiene las ventas que va realizando el cliente
+     * @param contador contiene el numero de consultas que va respondiendo el agente
+     * @param id contiene el id de agente
+     */
     private static ArrayList<Venta> VentasRealizadas;
-    //private ArrayList<Consultas> ListaConsultas;
     private static int contador;
     private int id;
     
+    //CONSTRUCTOR
      public Agente_Venta(String user, String password, String nombre, int cedula, String correo, int id) {
         super(user, password, nombre, cedula, correo/*, TipoUsuario.Agente_Venta*/);
         VentasRealizadas = new ArrayList<Venta>();
@@ -30,6 +36,8 @@ public class Agente_Venta extends Usuario {
     }
     
     
+     //Muestra el menu principal del Agente de Venta, donde Interacciona con el Usuario
+     //en tiempo de EJECUCION, pidiendo y validando los datos que ingresan
     public static void MostrarMenuAgente(){
         Scanner  sc = new Scanner(System.in);
         String opcion;
@@ -55,9 +63,10 @@ public class Agente_Venta extends Usuario {
                     System.out.println("Opcion invalida");
                     break;
             }
-        }while(!opcion.equals("3"));
-        }
+        }while(!opcion.equals("3")); //--FIN DEL BUCLE PRINCIPAL
+    }
     
+    //MUESTRA la Intreaccion si escoje la Opcion de Menu 1
     private static void opcion1AV(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcion Buzon de Consultas");
@@ -80,7 +89,7 @@ public class Agente_Venta extends Usuario {
             if(c.getCodigo()== codigo){
                 for(Conversacion con:c.getConversaciones()){
                     System.out.println(con);
-                }
+                }//--RECORRIDO DE CONVERSACIONES
                 System.out.println("Desea agregar una respuesta o regresar (si/no)");
                 String respuesta = sc.nextLine();
                 if(respuesta.toLowerCase().equals("si")){
@@ -92,10 +101,11 @@ public class Agente_Venta extends Usuario {
                     contador+=1;
                 }
             }
-        }
+        }//--FIN DEL FOR PRINCIPAL
     }
     
     
+    //MUESTRA la Intreaccion si escoje la Opcion de Menu 2
     private static void opcion2AV(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Opcion Resgistrar Venta");
@@ -105,7 +115,7 @@ public class Agente_Venta extends Usuario {
         System.out.print("Ingrese el correo del cliente");
         String correoc= sc.nextLine();
         System.out.print("Ingrese los datos la cedula del cliente: ");
-        while(!sc.hasNextInt()){
+        while(!sc.hasNextInt()){//-VALIDACION DE INGRESO DE DATOS
                 sc.nextLine();
                 System.out.println("Cedula Identidad Incorrecta");
                 System.out.print("Ingrese su identificacion correctamente:");
@@ -119,15 +129,20 @@ public class Agente_Venta extends Usuario {
         LocalDate fechav = LocalDate.now();
         Venta v = new Venta(fechav, cv);
    
-        VentasRealizadas.add(v);
-        
-    
+        VentasRealizadas.add(v); //--AGREGA A LA VENTA A SU LISTA DE VENTAS
     }
-
+    
+    
+    //@GETTERS
     public int getId() {
         return id;
     }
-
+    
+    public int getContador(){
+        return contador;
+    }
+    
+    //@SETTERS
     public static void setVentasRealizadas(ArrayList<Venta> VentasRealizadas) {
         Agente_Venta.VentasRealizadas = VentasRealizadas;
     }
@@ -136,15 +151,13 @@ public class Agente_Venta extends Usuario {
         return VentasRealizadas;
     }
     
-    public int getContador(){
-        return contador;
-    }
-    
+    //Muestra la Informacion Necesaria del Agente, como sus Ventas y Consultas hechas
     public void mostrarInformacion(){
         System.out.print("\nVentas:"+ VentasRealizadas.size()+"\nConsultas:"+calcularNumeroConsultas()+
                 "\nNombre: "+super.getNombre()+"\nUsuario: "+super.getUser());
     }
     
+    //Metodo que calcula el numero de Consultas que ha realizado
     public int calcularNumeroConsultas(){
        
         for(Consulta c: UIUsuarios.getListaConsultas()){
@@ -154,11 +167,11 @@ public class Agente_Venta extends Usuario {
                 return contador;
                 }
             }
-        }
+        }//--FIN DEL FOR PRINCIPAL
         return contador;
     }
     
-    
+    //Metodo que calcula las Ventas Realizadas
     public int calcularVentasRealizadas(){
         return VentasRealizadas.size();
     }

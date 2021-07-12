@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Propiedades;
 
 /**
  *
  * @author andya
  */
+
+//Tipos de Terrenos Usados en la Clase Terreno
+/*===================================================================================|
+Clase ENUM TipoTerreno                                                               |
+Permite la eleccion de tres tipos de Terreno: COMERCIAL, VIVIENDO, EMPRESARIAL       |
+======================================================================================*/
 public enum TipoTerreno {
     COMERCIAL, VIVIENDA, EMPRESARIAL;
 }

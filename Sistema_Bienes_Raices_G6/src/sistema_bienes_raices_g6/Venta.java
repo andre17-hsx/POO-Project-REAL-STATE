@@ -1,29 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sistema_bienes_raices_g6;
 
+//@see
 import Usuarios.Agente_Venta;
 import Usuarios.Cliente;
 import java.time.LocalDate;
 
 /**
- *
+ * 
  * @author andya
  */
+
+/*========================================================|
+CLASE Venta                                               |
+Contiene la fecha de venta y datos del comprador.         |                                                                        |
+==========================================================*/
 public class Venta {
+    /**
+     * @param fechaVenta contiene la fecha en la que se realizo la venta
+     * @param comprador contiene el nombre de su cliente
+     */
     private LocalDate fechaVenta;
-    //private Agente_Venta Agente;
-    //private int numVentas;
     private Cliente Comprador;
     
+    //@Constructor
     public Venta(LocalDate fechaVenta, Cliente Comprador){
         this.fechaVenta = fechaVenta;
         this.Comprador= Comprador;
     }
-
+    
+    //@Getters
     public LocalDate getFechaVenta() {
         return fechaVenta;
     }

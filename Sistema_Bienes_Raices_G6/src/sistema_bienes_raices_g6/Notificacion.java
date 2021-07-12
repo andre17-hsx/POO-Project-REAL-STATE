@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sistema_bienes_raices_g6;
 
+
+//@see
 import java.util.ArrayList;
 import Propiedades.*;
 import java.util.Objects;
-
-
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -22,7 +18,16 @@ import javax.mail.MessagingException;
  *
  * @author jeras
  */
+/*==================================================================================================|
+CLASE Notificacion                                                                                  |
+Clase que se encarga de guardar la informacion para crear una alerta deacuerdo a la preferencia del |
+Cliente, consta de atributo email y de la Propiedad que esta interesado                             |
+=====================================================================================================*/
 public class Notificacion {
+    /**
+     * @param email contiene el correo del cliente
+     * @param propiedadPreferencia contiene la propiedad con las caracteristicas de su preferencia
+     */
     private String email;
     private Propiedad propiedadPreferencia;
     
@@ -33,22 +38,6 @@ public class Notificacion {
         this.propiedadPreferencia = propiedadPreferencia;
     }
     
-    
-    //Metodo que registra una preferencia, siempre y cuando no este repetida
-    /*public boolean registrarNotificacion(Notificacion noti) {
-        for (Notificacion i : UIUsuarios.getListaNotificaciones()) {
-            if(i!=null){
-                if (!i.equals(noti)) {
-                    System.out.println("se creo la alerta con exito");
-                    UIUsuarios.getListaNotificaciones().add(noti);
-                    return true;
-                }
-            }
-            
-        }
-        System.out.println("Ya existe una notificacion, no se creo la alerta");
-        return false;
-    }*/
     
     //GETTERS
     public String getEmail(){
@@ -87,11 +76,11 @@ public class Notificacion {
         try{
             mensaje.addRecipient(Message.RecipientType.TO,new InternetAddress(destino));
             mensaje.setSubject(asunto);
-            if(propiedad instanceof Terreno){
+            if(propiedad instanceof Terreno){ //--> Si la Propiedad es un Terreno envia mensaje con info de terreno
             Terreno terrCorreo = (Terreno)propiedad;
             mensaje.setText("Precio:"+terrCorreo.getPrecio()+", Tipo: "+terrCorreo.getTipo()+"Tamanio[M2]:"+terrCorreo.getTamanio()+
                     ", Ubicacion: "+terrCorreo.getProvincia()+"-"+terrCorreo.getCiudad()+"-"+terrCorreo.getSector()+ ", ID: "+terrCorreo.getId());
-            }else if(propiedad instanceof Casa){
+            }else if(propiedad instanceof Casa){ //--> Si la propiedad es una CASA, envia mensaje con info de casa
              Casa casaCorreo=(Casa)propiedad;
              mensaje.setText("Precio:"+casaCorreo.getPrecio()+", Pisos: "+casaCorreo.getNumPisos()+", Habitaciones: "+casaCorreo.getHabitaciones()+"Tamanio[M2]:"+casaCorreo.getTamanio()+
                     ", Ubicacion: "+casaCorreo.getProvincia()+"-"+casaCorreo.getCiudad()+"-"+casaCorreo.getSector()+ ", ID: "+casaCorreo.getId());

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//@see
 package Propiedades;
 import Usuarios.*;
 import java.util.Objects;
@@ -10,22 +6,32 @@ import java.util.Objects;
  *
  * @author jeras
  */
+
+/*=================================================================================================|
+SubCLASE Terreno                                                                                   |
+Hereda de Propiedad, y solo tiene como atributo diferente el tipo, adicional contiene getter,setter|
+asi como sobrescritura del Metodo EQUALS definido para un Terreno                                  |
+====================================================================================================*/
 public class Terreno extends Propiedad {
+     /**
+     * @param tipo me indica que tipo de terreno es --> TipoTerreno
+     */
     private TipoTerreno tipo;
 
     
-    //CONSTRUCTOR#1 DE LA CLASE TERRENO
+    //CONSTRUCTOR
     public Terreno(TipoTerreno tipo,double precio, double ancho, double profundidad, String[] ubicacion, boolean estadoVenta, boolean consultado,Agente_Venta agente, int id) {
         super(precio,ancho,profundidad,ubicacion, estadoVenta, consultado,agente, id); //--> Se llama al constructor de la SuperClase
         this.tipo = tipo;
     }
 
-    //@OverLoading del Constructor#1
+    //@OverLoading del Constructor
     public Terreno(TipoTerreno tipo, double precio, double ancho, double profundidad, String[] ubicacion,Agente_Venta agente, int id) {
         super(precio,ancho, profundidad, ubicacion,agente, id); //--> Se llama al constructor de la Superclase que solo recibe 5 parametros
         this.tipo = tipo;
     }
     
+    //@OverLoading del Constructor
     public Terreno(TipoTerreno tipo, double precio, double ancho, double profundidad, String[] ubicacion){
         super(precio,ancho, profundidad, ubicacion); //---> Llama al constructor de la SuperClase que solo recibe 5 argumentos
         this.tipo= tipo;
@@ -49,13 +55,14 @@ public class Terreno extends Propiedad {
         return hash;
     }
 
-
+    @Override
+    //Metodo Sobrescrito EQUALS que retorna verdadero si coincide con TODOS sus parametros.
     public boolean equals(Object obj){
         if(obj!=null){
             if(obj instanceof Terreno){
                 Terreno otro = (Terreno)obj;
-                if((super.getPrecio()==otro.getPrecio()) && (super.getAncho()==otro.getAncho())&&(super.getProfundidad()==otro.getProfundidad())&&
-                        super.validarUbicacion(otro)&&(tipo==otro.getTipo())){
+                if((super.getPrecio()==otro.getPrecio())&&(super.getTamanio()==otro.getTamanio())&&
+                        (getTipo().equals(otro.getTipo())) && super.validarUbicacion(otro)){
                     System.out.println("CUMPLIO CON TODO");
                     return true;
                 }

@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Usuarios;
 
+//@see Importacion de librerias usadas en la Clase
 import Propiedades.*;
 import java.text.SimpleDateFormat;
 import sistema_bienes_raices_g6.*;
@@ -17,11 +14,13 @@ import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+//@see importacion de librerías externas para uso de envío de correo
 import javax.mail.internet.ParseException;
 
-
+//@see
 import java.util.Properties;
 
+//@see
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -33,7 +32,19 @@ import javax.mail.MessagingException;
  *
  * @author andya
  */
+
+/*=================================================================================================|
+SubCLASE Administrador                                                                             |
+Permite acceder a las funciones de administrador. Muestra el menú con las opciones (métodos)       |
+de registrar propiedad, registrar agente, ver reporte general y cerrar sesión, que se encuentran d |
+entro de la clase.                                                                                 |
+=====================================================================================================*/
+
 public class Administrador extends Usuario {
+     /**
+     * @param ListaClientes contiene todos los clientes que administra
+     * @param ListaAgentes contiene todos los agentes que administra
+     */
     private ArrayList<Cliente> ListaClientes;
     private ArrayList<Agente_Venta> ListaAgentes;
     
@@ -52,7 +63,10 @@ public class Administrador extends Usuario {
         ListaAgentes= null;
     }
     
-    //Metodo Mostrar MenuInicial
+
+    /**Metodo Mostrar MenuInicial De AMINISTRADOR mostrado en tiempo de Ejecucion
+    *Interacciona con el usuario, pidiendole datos, que al mismo tiempo seran validados
+    /*por las diferentes condiciones del metodo*/
     public static void mostrarMenuAdministrador(){
         Scanner  sc = new Scanner(System.in);
         String opcion;
@@ -137,7 +151,8 @@ public class Administrador extends Usuario {
         
         if (tipo.toLowerCase().equals("casa")){
             System.out.print("Ingrese el numero de pisos:");
-            while(!sc.hasNextInt()){
+            
+            while(!sc.hasNextInt()){ //-- VALIDACION PARA INGRESO DE DATOS SOLAMENTE TIPO ENTERO
                 sc.nextLine();
                 System.out.println("Cantidad de pisos incorrectos:");
                 System.out.print("Ingrese el numero de pisos de la propiedad:");
@@ -157,10 +172,7 @@ public class Administrador extends Usuario {
         String valor = sc.nextLine();
         esDecimal(valor);
         
-        //esta validacion reemplaza a la que esta con comentarios ya que esta
-        //considera tanto si ingresa un entero como double y no deja un string
-        //en cambio con el !hashNextDouble() entraba en bucle y no leia el dato ingresado.
-        while(!esDecimal(valor)){
+        while(!esDecimal(valor)){//--> VALIDACION CON METODO esDecimal, donde solo permite ingreso de cantidades decimales
                 System.out.println("Precio incorrecto:");
                 System.out.print("Ingrese el precio correctamente:");
                 valor = sc.nextLine();
@@ -195,8 +207,6 @@ public class Administrador extends Usuario {
         String[] ubicacionPropiedad = new String[]{provincia,ciudad,direccion,sector};
         
         System.out.print("Ingrese el id de la propiedad:");
-        
-        //aqui si vale dejarlo porque es un numero entero... no tiene decimales 
         while(!sc.hasNextInt()){
                 sc.nextLine();
                 System.out.println("El valor ingresado es incorrecto <SOLO NUMEROS>");
@@ -256,9 +266,6 @@ public class Administrador extends Usuario {
                     }
             
         }
-        
-        /*scanUbi.close();
-        sc.close();*/
      
 }
      
@@ -365,11 +372,17 @@ public class Administrador extends Usuario {
                         ageMostrar.mostrarInformacion();
                     }
                 }
-            }
+            }//--FIN DEL FOR
 
 }   
 
-        
+    /**
+     * 
+     * @param inicio
+     * @param fin
+     * @param buscar
+     * @return 
+     */
     public static boolean enIntervalo(LocalDate inicio, LocalDate fin, LocalDate buscar){
         return buscar.isAfter(inicio)&& buscar.isBefore(fin);
     }
@@ -525,7 +538,8 @@ public class Administrador extends Usuario {
         }
         return numConsul;
     }
-    
+
+    //Metodo que calcula el Numero de Ventas que ha realiado un Agente de Ventas
     public static int calcularNumeroVentas(LocalDate inicio,LocalDate fin,Agente_Venta agente){
         int numVentas=0;
         for(Usuario u: UIUsuarios.getListaUsuarios()){
@@ -540,7 +554,7 @@ public class Administrador extends Usuario {
                     }
                 }
             }
-        }
+        }//FIN DEL FOR PRINCIPAL
         return numVentas;
     }
     

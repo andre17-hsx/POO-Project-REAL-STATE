@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Prestamos;
 
 import java.lang.Math;
@@ -10,11 +6,12 @@ import java.lang.Math;
  *
  * @author ALICE
  */
+/*=================================================================================================|
+CLASE ABSTRACTA CalculadoraPrestamo                                                                          |
+Declara el método y las variables de instancia necesarias para realizar el préstamo.               |
+===================================================================================================*/
 public abstract class CalculadoraPrestamo{
-    /*protected double tasaInteres;
-    protected double num_cuotas;
-    protected double costoPropiedad;*/
-    
+    //no contiene atributos porque es abstracto
     
     public abstract double calculadoraPrestamo();
 }
